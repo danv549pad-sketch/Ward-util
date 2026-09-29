@@ -70,12 +70,13 @@ const allowedStatus: Partial<Record<Kind, string[]>> = {
 };
 const checkStatus = (kind: Kind, status: unknown) => !status || (allowedStatus[kind]?.includes(String(status)) ?? false);
 const visible = (kind: Kind, row: any) => {
-  if (kind === "requests") return false;
-  if (kind === "activity-suggestions") return row.status === "Approved";
-  if (kind === "activities") return row.status === "Published";
-  if (kind === "suggestions") { const data = JSON.parse(row.data); return data.published === true && !!data.response; }
   const data = JSON.parse(row.data);
-  return data.active !== false;
+  if (kind === "requests") return false;
+  if (data.active === false) return false;
+  if (kind === "activity-suggestions") return row.status === "Approved" && data.published !== false;
+  if (kind === "activities") return row.status === "Published" && data.published !== false;
+  if (kind === "suggestions") return data.published === true && !!data.response && !["Archived", "Declined"].includes(row.status);
+  return data.published !== false;
 };
 // Basic per-IP guard for submissions and PIN guesses. No request bodies are logged.
 const attempts = new Map<string, { start: number; count: number }>();
@@ -307,7 +308,7 @@ router.get("/wardspace/staff/metrics/monthly", (req, res) => {
   res.json(GetMonthlyEngagementMetricsResponse.parse({
     month,
     suggestionsReceived: count("SELECT COUNT(*) AS n FROM engagement_events WHERE event_type='suggestion_submitted' AND created_at >= ? AND created_at < ?", start, end),
-    suggestionsImplemented: count("SELECT COUNT(*) AS n FROM general_suggestions WHERE status='Responded' AND published=1 AND updated_at >= ? AND updated_at < ?", start, end),
+    suggestionsImplemented: count("SELECT COUNT(*) AS n FROM general_suggestions WHERE status IN ('Responded','Implemented') AND json_extract(data, '$.published') = 1 AND updated_at >= ? AND updated_at < ?", start, end),
     activitiesCreated: count("SELECT COUNT(*) AS n FROM activities WHERE created_at >= ? AND created_at < ?", start, end),
     activityInterestClicks: count("SELECT COUNT(*) AS n FROM engagement_events WHERE event_type='activity_interest_added' AND created_at >= ? AND created_at < ?", start, end),
     suggestionInterestClicks: count("SELECT COUNT(*) AS n FROM engagement_events WHERE event_type='suggestion_interest_added' AND created_at >= ? AND created_at < ?", start, end),

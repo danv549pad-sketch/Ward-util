@@ -43,11 +43,13 @@ All paths below begin with `/api/wardspace`:
 | PATCH, DELETE | `/:kind/:id` | Staff-only content editing and deletion |
 | POST, DELETE | `/:kind/:id/interest` | Add/remove anonymous interest in a published activity or approved activity idea |
 | GET | `/summary` | Public activity/notice counts; staff-only request and suggestion counts |
-| GET, POST | `/staff/status`, `/staff/login`, `/staff/logout` | Staff session checking, sign-in and sign-out |
+| GET | `/staff/status` | Check whether the current browser has a staff session |
+| POST | `/staff/login`, `/staff/logout` | Staff sign-in and sign-out |
 | GET | `/challenges/current` | Published challenge and explicitly published text entries |
 | POST | `/challenges/submissions` | Anonymous challenge text entry for staff review |
 | GET, PUT | `/staff/challenges/current` | Staff challenge viewing and editing |
-| GET, PATCH | `/staff/challenges/submissions`, `/staff/challenges/submissions/:id` | Staff review, publish or hide entries |
+| GET | `/staff/challenges/submissions` | Staff review queue |
+| PATCH | `/staff/challenges/submissions/:id` | Publish, hide or return an entry to review |
 | GET | `/staff/requests?status=...` | Staff request queue and optional status filter |
 | GET | `/staff/metrics/monthly` | Staff-only aggregate community activity totals |
 
