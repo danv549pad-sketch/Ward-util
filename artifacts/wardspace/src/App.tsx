@@ -8,11 +8,12 @@ import { TodayPage, DiscoverPage, AskPage } from '@/pages/experience';
 import { NoticeboardPage } from '@/pages/noticeboard';
 import { Link } from 'wouter';
 import type { ReactNode } from 'react';
+import { DeviceProvider, SharedActivityMonitor, useDevice } from '@/lib/device-mode';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30000 } } });
 function NotFound() { return <><PageHeading eyebrow="Not found" title="This page isn’t here." description="No worries. You can find your way back to today."/><Link href="/" className="btn btn-primary" data-testid="link-not-found-home">Back to today</Link></>; }
 function RoutedBoundary({children}:{children:ReactNode}) { const [location]=useLocation(); return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>; }
-function Router() { return <Switch><Route path="/noticeboard" component={NoticeboardPage}/><Route><Shell><RoutedBoundary><Switch>
+function Router() { const {resetVersion}=useDevice(); return <Switch><Route path="/noticeboard" component={NoticeboardPage}/><Route><Shell><SharedActivityMonitor/><RoutedBoundary key={resetVersion}><Switch>
   <Route path="/" component={TodayPage}/>
   <Route path="/discover" component={DiscoverPage}/>
   <Route path="/ask" component={AskPage}/>
@@ -26,5 +27,5 @@ function Router() { return <Switch><Route path="/noticeboard" component={Noticeb
   <Route path="/about" component={AboutPage}/>
   <Route component={NotFound}/>
 </Switch></RoutedBoundary></Shell></Route></Switch>; }
-function App() { return <QueryClientProvider client={queryClient}><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><Router/></WouterRouter></QueryClientProvider>; }
+function App() { return <QueryClientProvider client={queryClient}><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><DeviceProvider><Router/></DeviceProvider></WouterRouter></QueryClientProvider>; }
 export default App;

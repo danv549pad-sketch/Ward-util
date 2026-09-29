@@ -6,11 +6,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { errorMessage, useWardActions } from '@/hooks/use-ward';
 import { ItemCard, PageHeading, SectionTitle, State } from '@/components/ward-ui';
 import { currentAndNext, localDay, todayEvents } from '@/lib/public-timeline';
+import { useDevice } from '@/lib/device-mode';
 
 const timeLabel = (s?:string) => s ? s.slice(0,5) : 'Time to be confirmed';
 const isPublic = (x:WardItem) => x.published !== false && x.active !== false && !['cancelled','declined','archived','draft'].includes(x.status?.toLowerCase()||'');
 
 export function TodayPage() {
+  const {mode}=useDevice();
   const [now,setNow] = useState(() => new Date());
   useEffect(() => {
     const tick = () => setNow(new Date());
@@ -20,6 +22,7 @@ export function TodayPage() {
   }, []);
   const clock = now.toTimeString().slice(0,5);
   const schedule = useListWardItems('schedule'), activities = useListWardItems('activities'), announcements = useListWardItems('announcements');
+  const challenge=useGetCurrentDailyChallenge();
   const events = todayEvents(schedule.data||[],activities.data||[],now);
   const {current,next} = currentAndNext(events,now);
   const nextIndex = events.findIndex(x=>x.id===next?.id && x.kind===next?.kind);
@@ -38,8 +41,10 @@ export function TodayPage() {
         {to:'/discover#things',title:'Find something to do',Icon:Sparkles},
         {to:'/ask',title:'Request something',Icon:MessageSquareText},
         {to:'/discover#guide',title:'Ward guide',Icon:BookOpen},
+         ...(mode==='shared'?[{to:'/ask?type=suggestion',title:'Share an idea',Icon:MessageSquareText}]:[]),
       ].map(({to,title,Icon})=><Link key={title} href={to} className="quick-tile group" data-testid={`link-quick-${title.toLowerCase().replaceAll(' ','-')}`}><Icon size={25} strokeWidth={1.7} className="text-[#416b58]"/><span className="flex justify-between items-end gap-2 font-bold text-[#2e5345] leading-tight">{title}<ArrowRight size={16} className="shrink-0 group-hover:translate-x-1 transition-transform"/></span></Link>)}</div></section>
     </div>
+    {mode==='shared'&&challenge.data?.challenge&&<section className="surface p-6 md:p-8 mb-10"><p className="eyebrow mb-2">Daily challenge</p><h2 className="display text-2xl">{challenge.data.challenge.title}</h2><p className="text-[#607568] mt-3">{challenge.data.challenge.instructions}</p><Link href="/discover#daily-challenge" className="btn btn-outline mt-5">See the challenge <ArrowRight size={16}/></Link></section>}
     {evening.length>0&&<section className="mb-10"><SectionTitle title="Later today" /><div className="grid sm:grid-cols-2 gap-3">{evening.map(x=><div key={`${x.kind}-${x.id}`} className="surface p-5 flex items-start gap-4"><div className="rounded-xl bg-[#e3eae0] p-3 text-[#436b58]"><Clock3 size={22}/></div><div><span className="eyebrow">{timeLabel(x.time)}</span><h3 className="display text-xl mt-1">{x.title}</h3>{x.location&&<p className="text-sm text-[#687b6d] mt-1">{x.location}</p>}</div></div>)}</div></section>}
     <section><SectionTitle title="Noticeboard" /><State loading={announcements.isLoading} error={announcements.isError} empty={!announcements.data?.filter(isPublic).length} retry={()=>announcements.refetch()}><div className="surface divide-y divide-[#e8e7dc]">{announcements.data?.filter(isPublic).slice(0,3).map(item=><div className="px-5 py-4" key={item.id}><strong className="text-[#2b5142]">{item.title}</strong>{item.description&&<p className="text-sm text-[#697b6f] mt-1">{item.description}</p>}</div>)}</div></State></section>
   </>;
@@ -96,7 +101,7 @@ function ChallengeSection(){
   if(challenge.isLoading)return <div className="surface h-40 animate-pulse mb-12"/>;
   if(challenge.isError)return <section className="surface p-6 mb-12"><h2 className="display text-2xl">Today’s challenge is unavailable.</h2><button className="btn btn-outline mt-4" onClick={()=>challenge.refetch()}>Try again</button></section>;
   if(!current)return null;
-  return <section className="rounded-[22px] bg-[#e9e4d7] p-6 md:p-9 mb-14" aria-labelledby="challenge-title"><p className="eyebrow mb-2">Today’s challenge · {current.category}</p><h2 id="challenge-title" className="display text-3xl md:text-4xl">{current.title}</h2><p className="text-[#4b6355] mt-4 whitespace-pre-wrap max-w-[65ch]">{current.instructions}</p>
+   return <section id="daily-challenge" className="rounded-[22px] bg-[#e9e4d7] p-6 md:p-9 mb-14 scroll-mt-36" aria-labelledby="challenge-title"><p className="eyebrow mb-2">Today’s challenge · {current.category}</p><h2 id="challenge-title" className="display text-3xl md:text-4xl">{current.title}</h2><p className="text-[#4b6355] mt-4 whitespace-pre-wrap max-w-[65ch]">{current.instructions}</p>
     {current.allowSubmissions&&<form className="mt-7 max-w-[650px]" onSubmit={async e=>{e.preventDefault();setMessage('');try{await send.mutateAsync({data:{text:text.trim()}});setText('');setMessage('Thanks. Your entry has been sent for review.');await qc.invalidateQueries({queryKey:getGetCurrentDailyChallengeQueryKey()})}catch(err){setMessage(errorMessage(err))}}}><label className="label" htmlFor="challenge-entry">Share a text entry (optional, anonymous)</label><textarea id="challenge-entry" className="field" required maxLength={1000} value={text} onChange={e=>setText(e.target.value)} placeholder="Your idea or answer…" data-testid="input-challenge-entry"/><button className="btn btn-primary mt-3" disabled={!text.trim()||send.isPending} data-testid="button-send-challenge">{send.isPending?'Sending…':'Send entry'}</button></form>}
     {message&&<p role="status" className="mt-4 text-[#375c4a]">{message}</p>}
     {!!challenge.data?.submissions.length&&<div className="mt-8 border-t border-[#d4d0c3] pt-5"><h3 className="font-bold mb-3">Shared entries</h3><div className="grid sm:grid-cols-2 gap-3">{challenge.data.submissions.map(x=><p key={x.id} className="bg-[#f9f7ee] rounded-xl p-4 whitespace-pre-wrap">{x.text}</p>)}</div></div>}
@@ -115,17 +120,23 @@ const requestCategoryValue:Record<string,string>={
   'Something Else':'Other practical request',
 };
 export function AskPage(){
+  const {mode}=useDevice();
   const [tab,setTab]=useState<'request'|'activity'|'suggestion'>(()=>{const t=new URLSearchParams(window.location.search).get('type');return t==='activity'?'activity':t==='suggestion'?'suggestion':'request'});
   const [category,setCategory]=useState(''),[title,setTitle]=useState(''),[detail,setDetail]=useState(''),[location,setLocation]=useState(''),[notice,setNotice]=useState('');
+  const [requestSent,setRequestSent]=useState(false);
+  useEffect(()=>{if(!requestSent)return;const timer=setTimeout(()=>{setRequestSent(false);setTab('request');setNotice('')},8000);return()=>clearTimeout(timer)},[requestSent]);
   const actions=useWardActions(),suggestions=useListWardItems('suggestions');
   const published=(suggestions.data||[]).filter(x=>x.response && isPublic(x));
   const submit=async(e:FormEvent)=>{e.preventDefault();setNotice('');try{
     await actions.create.mutateAsync({kind:tab==='request'?'requests':tab==='activity'?'activity-suggestions':'suggestions',data:{category:tab==='request'?(requestCategoryValue[category]||category):category,title:title.trim(),description:detail.trim(),location:tab==='request'?location.trim():undefined}});
-    setTitle('');setDetail('');setCategory('');setLocation('');setNotice('Thank you. Your message has been shared. For anything urgent, please speak directly to staff.');
+    setTitle('');setDetail('');setCategory('');setLocation('');
+    if(mode==='shared'&&tab==='request') {setRequestSent(true);setNotice('')}
+    else setNotice('Thank you. Your message has been shared. For anything urgent, please speak directly to staff.');
   }catch(err){setNotice(errorMessage(err))}};
   return <><PageHeading eyebrow="Ask / Suggest" title="Have your say." description="Ask for an everyday item or share an idea. No name needed."/>
     <div className="rounded-[16px] bg-[#f2e9db] border border-[#e5d5be] p-5 mb-8 text-[#614d3a]"><strong>Need help now?</strong><p className="text-sm mt-1">WardSpace is for non-urgent messages and is not monitored for emergencies. Please speak directly to a member of staff for urgent help.</p></div>
-    <div className="segmented mb-7" role="group" aria-label="Choose what to share">{([['request','Request something'],['activity','Suggest an activity'],['suggestion','Share an idea']] as const).map(([key,label])=><button key={key} aria-pressed={tab===key} onClick={()=>{setTab(key);setCategory('');setNotice('')}}>{label}</button>)}</div>
+    {mode==='shared'&&requestSent?<div className="surface p-7 md:p-9 max-w-[700px] mb-8" role="status" data-testid="status-shared-request-sent"><h2 className="display text-3xl">Request sent</h2><p className="mt-4 text-[#526b5b]">WardSpace requests are not monitored for urgent help. If you need someone now, please speak directly to a member of staff.</p><button type="button" className="btn btn-outline mt-6" onClick={()=>{setRequestSent(false);setTab('request')}}>Back to Ask / Suggest</button></div>:<>
+    <div className="segmented mb-7" role="group" aria-label="Choose what to share">{([['request','Request something'],['activity','Suggest an activity'],['suggestion','Share an idea']] as const).map(([key,label])=><button key={key} aria-pressed={tab===key} onClick={()=>{setTab(key);setCategory('');setNotice('');if(mode==='shared'){setTitle('');setDetail('');setLocation('')}}}>{label}</button>)}</div>
     <div className="grid lg:grid-cols-[1.08fr_.92fr] gap-9">
       <section><div className="surface p-5 md:p-8"><h2 className="display text-2xl md:text-3xl mb-3">{tab==='request'?'What do you need?':tab==='activity'?'What could we do together?':'What could be better?'}</h2><p className="text-[#64796c] mb-6 text-sm">{tab==='request'?'Choose a category, then tell us a little more.':tab==='activity'?'An activity you would like to see on the ward.':'Your ideas can help make everyday life here better.'}</p>
       {tab==='request'&&<div className="grid sm:grid-cols-2 gap-2 mb-6">{requestCategories.map(({name,Icon})=><button type="button" key={name} className={`choice ${category===name?'selected':''}`} aria-pressed={category===name} onClick={()=>setCategory(name)}><Icon size={21} strokeWidth={1.8}/><span>{name}</span></button>)}</div>}
@@ -138,6 +149,6 @@ export function AskPage(){
         <button disabled={actions.create.isPending} className="btn btn-primary" data-testid="button-ask-submit">{actions.create.isPending?'Sending…':tab==='request'?'Submit request':'Share anonymously'} <ArrowRight size={16}/></button></>}
       </form>{notice&&<p role="status" className="inset p-4 mt-5" data-testid="status-ask">{notice}</p>}</div></section>
       <section><p className="eyebrow mb-2">Your voice matters</p><SectionTitle title="You said / We did" /><p className="text-[#607568] mb-5">Ideas from the ward and what happened next.</p><State loading={suggestions.isLoading} error={suggestions.isError} empty={!published.length} retry={()=>suggestions.refetch()}><div className="space-y-3">{published.map(item=><article key={item.id} className="surface p-5 md:p-6"><span className="eyebrow">You said</span><h3 className="display text-xl mt-2">{item.title}</h3><div className="mt-5 pt-4 border-t border-[#dce4d9]"><span className="eyebrow">We did</span><p className="text-[#41634e] mt-2">{item.response}</p></div>{item.status&&<span className="pill mt-4">{item.status}</span>}</article>)}</div></State></section>
-    </div>
+    </div></>}
   </>;
 }

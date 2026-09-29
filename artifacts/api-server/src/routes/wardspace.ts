@@ -180,7 +180,8 @@ function interest(req: Request, res: Response, add: boolean) {
   if (!raw || !visible(kind, raw)) { res.status(404).json({ error: "Activity not found" }); return; }
   const interestTable = kind === "activities" ? "activity_interest" : "suggestion_interest";
   const col = kind === "activities" ? "activity_id" : "suggestion_id";
-  const session = viewer(req, res);
+  const sharedDevice = add && req.get("X-WardSpace-Device-Mode") === "shared";
+  const session = sharedDevice ? randomUUID() : viewer(req, res);
   if (add) {
     const result = sqlite.prepare(`INSERT OR IGNORE INTO ${interestTable} (${col}, anonymous_session_id) VALUES (?, ?)`).run(id, session);
     if (result.changes) trackEngagement(kind === "activities" ? "activity_interest_added" : "suggestion_interest_added");

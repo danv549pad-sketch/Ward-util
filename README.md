@@ -6,7 +6,7 @@ WardSpace is a **non-clinical prototype** digital front door to everyday ward li
 
 - Useful information first; four patient destinations: **Today**, **Discover**, **Ask / Suggest**, **My Stuff**.
 - No account or name is required for patient-facing features. Activity interest and challenge text entries are anonymous to other users; staff moderate shared content.
-- Personal My Stuff notes and checklists stay in this browser's `localStorage`, not the server. A shared device is **not** private.
+- My Stuff never goes to the server. Personal-device notes remain in this browser's `localStorage`; shared-device notes are kept only in a temporary `sessionStorage` session.
 - Staff control published content and responses. The communal noticeboard never shows requests, personal notes or staff controls.
 
 ## Run locally
@@ -22,6 +22,20 @@ Set these as Replit **Secrets** (do not commit them or expose them in client Jav
 
 Optionally set `WARDSPACE_DB_PATH` to a writable **durable** SQLite path. By default the database is `artifacts/api-server/data/wardspace.sqlite`, which may not survive a hosted instance replacement. `VITE_WARDSPACE_PUBLIC_URL` optionally sets the destination of the noticeboard QR code; otherwise it encodes the page's current origin and app base path. Use a publicly reachable URL for a shared display, not an address local to one device.
 
+## Personal phones and shared ward tablets
+
+New browsers start in **Personal device** mode. My Stuff continues to use the existing `wardspace-my-stay` localStorage key so a person's saved notes survive this update. The mode label is visible in the app. A patient scanning the noticeboard QR on their own phone gets Personal mode by default.
+
+Staff signed in at `/staff` can set **Device configuration → Shared device** on the physical communal tablet. Alternatively, opening `/?mode=shared` on that tablet intentionally selects and locally saves Shared mode. Ordinary page navigation does not change mode; a public `?mode=personal` URL cannot switch a tablet already set to Shared back to Personal. Only the authenticated staff setting can switch it back. Device configuration is **per browser**, not a ward-wide server setting. Staff can explicitly delete older Personal-mode notes on the tablet after a confirmation; switching modes never silently deletes them. Until deleted, those older notes remain on the device but are never loaded by Shared mode.
+
+In Shared mode, entering My Stuff requires **Start My Session**. Its lists and notes read and write a separate sessionStorage key, never the Personal-mode localStorage key. **Finish & Clear My Session**, the global **Finish & clear my session** control, or inactivity clears the shared session data and all unsent React form/selection state, returns to Today, and confirms that the session was cleared. Open duplicate tabs on the same browser receive the reset through a local, data-free signal; a staff mode change is likewise applied to other open tabs. The app also requests staff sign-out on reset; if that cannot be confirmed, it displays a warning. Submitted requests, suggestions, interest counts and public content on the server are **not** erased by this browser reset.
+
+The default inactivity interval is **10 minutes**; `VITE_SHARED_IDLE_MINUTES` configures it at build time (between one second and two hours, for controlled testing/installation). Activity such as tapping, typing, touching or scrolling resets the timer. Returning to an inactive tab checks the elapsed time before accepting further input. An expired My Stuff session is discarded on reload. The always-on `/noticeboard` is read-only and does not use My Stuff or the patient-app inactivity redirect.
+
+On a Shared device, an activity's **I’m in** action sends a fresh anonymous interest event and briefly says **Thanks — interest recorded**, then returns to a neutral button. It deliberately does not use the long-lived browser interest cookie to decide whether a later person has already clicked. The API receives `X-WardSpace-Device-Mode: shared` for this action and records a new random, unlinked interaction ID per tap. Personal-device interest still uses the existing signed cookie to allow toggling. Neither mode tracks patient identity; shared-device counts are **indicative engagement signals**, not verified people or attendance, and repeated taps can increase them.
+
+After a Shared-device practical request is submitted, the form is cleared and replaced briefly by a neutral **Request sent** message with urgent-help guidance, then returns to the default Ask / Suggest screen. A global reset clears unsent request, suggestion and challenge text as well as temporary My Stuff data. It does **not** retract successfully submitted content.
+
 Staff enter their PIN at `/staff`. The server compares it, rate-limits guesses, issues a signed HttpOnly cookie with a 30-minute sliding inactivity expiry and clears it on logout. Production cookies use the Secure flag. Every staff read/write route checks the server-side session. This is stronger than the initial hard-coded demo PIN but is **still prototype authentication**, not individual staff accounts or a healthcare-grade access system. Session signing requires `SESSION_SECRET` to be stable; without it, cookies invalidate on restart.
 
 ## Architecture and storage
@@ -31,7 +45,7 @@ Staff enter their PIN at `/staff`. The server compares it, rate-limits guesses, 
 - `artifacts/api-server/src/lib/wardspace-db.ts`: SQLite schema, additive table migrations and fictional demo seed data. Existing content is preserved when new tables are introduced; seeds only populate empty tables.
 - `lib/api-spec/openapi.yaml`: API contract; generated React Query client and Zod schemas live in `lib/api-client-react` and `lib/api-zod`.
 
-SQLite content tables are `schedule_events`, `activities`, `activity_suggestions`, `practical_requests`, `general_suggestions`, `announcements`, `ward_guide`, `things_to_do` and `learning_resources`. Additional tables are `activity_interest`, `suggestion_interest`, `daily_challenges`, `challenge_submissions` and `engagement_events`. Challenge text is hidden until staff explicitly publish it. Engagement events store event type and time only, not a patient identity or cross-session profile. Anonymous interest uses a signed browser cookie to prevent repeated votes from the same browser; it is **not** a reliable count of unique people.
+SQLite content tables are `schedule_events`, `activities`, `activity_suggestions`, `practical_requests`, `general_suggestions`, `announcements`, `ward_guide`, `things_to_do` and `learning_resources`. Additional tables are `activity_interest`, `suggestion_interest`, `daily_challenges`, `challenge_submissions` and `engagement_events`. Challenge text is hidden until staff explicitly publish it. Engagement events store event type and time only, not a patient identity or cross-session profile. Personal-mode anonymous interest uses a signed browser cookie; shared-mode interest uses an unlinked random ID per tap. Neither is a reliable count of unique people.
 
 ## REST API
 
