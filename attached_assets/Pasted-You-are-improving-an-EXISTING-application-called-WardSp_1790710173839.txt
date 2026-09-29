@@ -1,0 +1,1392 @@
+You are improving an EXISTING application called WardSpace.
+
+Do NOT rebuild the project from scratch.
+
+First inspect the current codebase, routes, components, database, API endpoints and styling. Preserve working functionality wherever possible, then improve the product according to the specification below.
+
+The goal of this iteration is to make WardSpace feel less like a generic prototype and more like a credible, simple, useful digital companion for everyday life on an inpatient mental health ward.
+
+The product should remain explicitly NON-CLINICAL.
+
+The core product proposition is:
+
+WardSpace helps people know what’s happening, find something to do, get everyday things sorted and have a say in the ward.
+
+Do not add clinical monitoring, diagnosis, medication advice, risk scoring or therapeutic decision-making.
+
+⸻
+
+1. PRODUCT DIRECTION
+
+WardSpace should become the:
+
+DIGITAL FRONT DOOR TO THE WARD
+
+The application should answer four primary questions quickly:
+
+1. What’s happening?
+2. What can I do?
+3. Can I request something?
+4. Where can I find information?
+
+Almost everything should be reachable within two taps.
+
+Reduce complexity.
+
+Do not add unnecessary features.
+
+Focus on:
+
+* clarity
+* speed
+* accessibility
+* usefulness
+* engagement
+* simple staff administration
+
+⸻
+
+2. SIMPLIFY PATIENT NAVIGATION
+
+The current navigation should be simplified.
+
+Replace the existing patient navigation structure with FOUR main destinations:
+
+Today
+
+The main home/dashboard.
+
+Discover
+
+Contains:
+
+* activities
+* things to do
+* learning activities
+* Ward Guide
+
+Ask / Suggest
+
+Contains:
+
+* practical requests
+* suggest an activity
+* general suggestions
+* You Said / We Did
+
+My Stuff
+
+Contains:
+
+* things I want to ask
+* things I need to sort
+* things I want to do today
+
+Keep these My Stuff items stored locally using localStorage.
+
+Do NOT store personal My Stuff information centrally.
+
+Keep Staff access separate and discreet.
+
+⸻
+
+3. COMPLETELY REDESIGN THE HOME / TODAY PAGE
+
+The Today page should become the strongest screen in the application.
+
+It should immediately communicate:
+
+What’s happening right now?
+
+At the top:
+
+WardSpace
+
+Automatic greeting based on local time:
+
+Good morning
+
+Good afternoon
+
+Good evening
+
+Then:
+
+Here’s what’s happening today
+
+⸻
+
+NOW / NEXT
+
+Create a large hero card.
+
+Example:
+
+NOW
+
+Film Night
+
+19:00
+
+Main Lounge
+
+8 people interested
+
+Button:
+
+View activity
+
+If nothing is currently happening, show:
+
+NEXT UP
+
+Walking Group
+
+13:30
+
+Meet by reception
+
+⸻
+
+TODAY’S TIMELINE
+
+Show today’s schedule in a simple, highly readable vertical timeline.
+
+Examples:
+
+08:00 Breakfast
+
+09:00 Morning Meeting
+
+10:30 OT Group
+
+12:00 Lunch
+
+13:30 Walking Group
+
+15:00 Quiz
+
+17:30 Dinner
+
+19:00 Film Night
+
+Past events should visually fade slightly.
+
+Current or next events should be highlighted.
+
+⸻
+
+QUICK ACTIONS
+
+Create four large tiles:
+
+What’s On
+
+Find Something To Do
+
+Request Something
+
+Ward Guide
+
+Use clear icons and large touch targets.
+
+⸻
+
+TONIGHT / LATER TODAY
+
+If applicable, create a section focused on evening activities.
+
+Examples:
+
+Film Night
+
+Pool Tournament
+
+Board Games
+
+This should feel inviting rather than administrative.
+
+⸻
+
+ANNOUNCEMENTS
+
+Keep announcements concise.
+
+Do not let announcements dominate the page.
+
+⸻
+
+4. ACTIVITIES NEED TO FEEL MORE ENGAGING
+
+Redesign activity cards.
+
+They should be visually strong and easy to scan.
+
+Example:
+
+POOL TOURNAMENT
+
+Friday · 20:00
+
+Games Room
+
+8 people interested
+
+Button:
+
+I’m in
+
+If selected:
+
+✓ I’m in
+
+Clicking again removes interest.
+
+Do NOT display participant identities.
+
+⸻
+
+ACTIVITY CATEGORIES
+
+Use simple visual categories such as:
+
+Games
+
+Creative
+
+Outdoors
+
+Music
+
+Exercise
+
+Social
+
+Food
+
+Learning
+
+Film
+
+⸻
+
+POPULAR IDEAS
+
+Create a strong section:
+
+What should we do next?
+
+Show approved activity ideas that patients can vote on.
+
+Example:
+
+FIFA Tournament
+
+9 people would join
+
+Button:
+
+I’d join
+
+Pizza & Film Night
+
+7 people would join
+
+Button:
+
+I’d join
+
+Karaoke
+
+6 people would join
+
+Button:
+
+I’d join
+
+Do not call this a formal poll.
+
+Make it feel informal and social.
+
+⸻
+
+5. REQUEST SOMETHING — REMOVE FORM FRICTION
+
+The practical request experience should be much simpler.
+
+Instead of showing a traditional form first, show large category tiles.
+
+Examples:
+
+Toiletries
+
+Bedding
+
+Clothes / Laundry
+
+Books / Games
+
+Food / Drink Question
+
+Something In My Room
+
+I’d Like To Speak To Someone
+
+Something Else
+
+Use icons.
+
+When a category is tapped, show ONE simple short-text input.
+
+Example:
+
+What do you need?
+
+Then:
+
+Submit Request
+
+Do not ask unnecessary questions.
+
+Location/room reference may remain optional.
+
+Do not require a name.
+
+⸻
+
+6. SPEAK TO SOMEONE SAFETY MESSAGE
+
+The category:
+
+I’d Like To Speak To Someone
+
+must remain NON-URGENT.
+
+When selected, show clearly:
+
+Want to speak with someone?
+
+You can use this to leave a non-urgent request to speak with a member of staff.
+
+If you need help now, feel unsafe, or need urgent assistance, please speak directly to a member of staff rather than using WardSpace.
+
+Do not:
+
+* ask severity
+* assess risk
+* provide emergency triage
+* analyse language
+* trigger automatic escalation
+* provide diagnosis
+* provide mental health advice
+
+⸻
+
+7. SUGGESTIONS
+
+Make suggestions feel collaborative rather than bureaucratic.
+
+Categories:
+
+Activities
+
+Ward Environment
+
+Entertainment
+
+Food
+
+Facilities
+
+General Improvement
+
+Form:
+
+Title
+
+Short suggestion
+
+Category
+
+Submit
+
+Keep submissions anonymous.
+
+⸻
+
+8. YOU SAID / WE DID
+
+Make this a prominent feature.
+
+The page should feel positive and visibly show that suggestions can result in action.
+
+Example card:
+
+YOU SAID
+
+Could we have a pool tournament?
+
+WE DID
+
+A pool tournament has been added for Friday evening.
+
+⸻
+
+Another:
+
+YOU SAID
+
+Could we have more books?
+
+WE DID
+
+A book swap shelf has been added to the lounge.
+
+⸻
+
+Add optional metadata:
+
+Implemented
+
+In Progress
+
+Under Review
+
+Do NOT show declined suggestions publicly by default.
+
+Staff should control what is published.
+
+⸻
+
+9. ADD SIMPLE ENGAGEMENT METRICS
+
+Create aggregate non-identifiable statistics that staff can optionally see.
+
+Examples:
+
+This month
+
+31 suggestions received
+
+18 suggestions implemented
+
+14 activities created
+
+67 activity interest clicks
+
+Do NOT turn these into clinical metrics.
+
+Do NOT associate data with named individuals.
+
+These are operational/community engagement metrics only.
+
+⸻
+
+10. REDESIGN THINGS TO DO
+
+Do not just present a large catalogue of cards.
+
+Create an entry flow.
+
+Heading:
+
+What do you feel like doing?
+
+First ask:
+
+How much time have you got?
+
+Options:
+
+5 minutes
+
+15 minutes
+
+30 minutes
+
+1 hour
+
+Longer
+
+Then optionally:
+
+What are you in the mood for?
+
+Options:
+
+Something Easy
+
+Something Creative
+
+Something Social
+
+Learn Something
+
+Use My Brain
+
+Move Around
+
+Just Kill Some Time
+
+Use these filters to surface suitable Things To Do content.
+
+⸻
+
+11. IMPROVE THINGS TO DO CONTENT
+
+Add richer demo content.
+
+Examples:
+
+Creative:
+
+* Design a fictional company logo
+* Draw something without lifting the pen
+* Write a six-line story
+* Design a flag
+* Create an album cover concept
+
+Brain:
+
+* Logic puzzles
+* Number puzzles
+* Word puzzles
+* Short quizzes
+* Riddles
+
+Technology:
+
+* Build a basic HTML page
+* Learn what DNS does
+* Learn how QR codes work
+* Create a simple password generator concept
+* Learn basic networking concepts
+
+Writing:
+
+* Review the last film you watched
+* Write a terrible movie synopsis
+* Create a fictional news headline
+* Write five lines of a story
+
+Social:
+
+* Start a board game
+* Suggest a group quiz
+* Conversation question cards
+* Create a team trivia round
+
+Learning:
+
+* Spanish phrases
+* Digital skills
+* CV basics
+* budgeting basics
+* photography basics
+* general knowledge
+
+Exercise/movement:
+
+Keep suggestions gentle and generic.
+
+Do NOT provide medical exercise advice.
+
+⸻
+
+12. ADD DAILY CHALLENGES
+
+Create a new feature within Discover:
+
+Today’s Challenge
+
+This should be fun and NON-CLINICAL.
+
+Examples:
+
+Design a flag for the ward.
+
+Take an interesting photo in the garden.
+
+Write the worst movie synopsis possible.
+
+Create a logo for an imaginary company.
+
+Build something using exactly 20 pieces.
+
+Solve today’s word puzzle.
+
+Design a fictional restaurant menu.
+
+Do NOT create wellbeing streaks.
+
+Do NOT award points for mood, attendance, health behaviour or treatment compliance.
+
+No mental health scoring.
+
+Staff should be able to create/edit the current Daily Challenge.
+
+⸻
+
+13. OPTIONAL CHALLENGE SUBMISSIONS
+
+For the prototype, allow a challenge to optionally support anonymous text submissions.
+
+Examples:
+
+Movie synopsis entry
+
+Team name
+
+Quiz answer
+
+Creative idea
+
+Do not allow image uploads yet unless already supported securely.
+
+Staff should be able to:
+
+review submission
+
+hide submission
+
+publish submission
+
+Do not display author identities.
+
+⸻
+
+14. RENAME MY STAY
+
+Rename:
+
+My Stay
+
+to:
+
+My Stuff
+
+Use friendlier language.
+
+Sections:
+
+Things I want to ask
+
+Examples:
+
+Ask about leave
+
+Ask about discharge planning
+
+Speak to OT
+
+Things I need to sort
+
+Examples:
+
+Call family
+
+Contact employer
+
+Ask someone to bring clothes
+
+Cancel an appointment
+
+Things I want to do today
+
+Checklist.
+
+Show:
+
+3 of 5 done
+
+Keep all data local in the user’s browser.
+
+Clearly state:
+
+These notes are stored on this device only and are not part of your medical record.
+
+⸻
+
+15. REMOVE DAILY MOOD CHECK-IN
+
+Remove the existing:
+
+How’s today going?
+
+feature if present.
+
+Do not replace it with another mood tracker.
+
+WardSpace should not move toward wellbeing monitoring or clinical assessment.
+
+⸻
+
+16. WARD GUIDE IMPROVEMENTS
+
+Keep Ward Guide but make it easier to navigate.
+
+Add search.
+
+Add category tiles:
+
+Daily Routine
+
+Staff Roles
+
+Meals
+
+Visiting
+
+Phones & Devices
+
+Laundry
+
+Activities
+
+Ward Round
+
+Leave
+
+Advocacy
+
+Feedback
+
+Discharge Planning
+
+Each article should be concise.
+
+Use expandable accordions or simple cards.
+
+Do not present hospital-specific rules as universally true.
+
+Use wording such as:
+
+Arrangements may vary between wards. Check with staff if you’re unsure.
+
+⸻
+
+17. STAFF DASHBOARD — MAKE SPEED THE PRIORITY
+
+Staff should be able to update WardSpace quickly.
+
+The dashboard should immediately show:
+
+What’s happening today
+
+Open practical requests
+
+New suggestions
+
+Activities
+
+Announcements
+
+Daily Challenge
+
+⸻
+
+18. ADD STAFF QUICK UPDATE
+
+Create a dedicated Quick Update area.
+
+Staff should be able to add an activity extremely quickly.
+
+Fields:
+
+Activity
+
+Time
+
+Location
+
+Optional description
+
+Button:
+
+Publish
+
+Aim for this to take seconds, not minutes.
+
+⸻
+
+QUICK ANNOUNCEMENT
+
+One text box:
+
+Example:
+
+Tonight’s film will start at 19:30.
+
+Button:
+
+Post Announcement
+
+⸻
+
+19. STAFF REQUEST MANAGEMENT
+
+Display requests in a clean queue.
+
+Example:
+
+NEW
+
+Toiletries
+
+Need toothpaste please
+
+Submitted 10 minutes ago
+
+Buttons:
+
+Acknowledge
+
+Complete
+
+⸻
+
+Statuses:
+
+New
+
+Acknowledged
+
+Completed
+
+Allow filtering.
+
+Do not introduce clinical escalation statuses.
+
+⸻
+
+20. STAFF SUGGESTION MANAGEMENT
+
+Suggestions should display:
+
+title
+
+category
+
+number interested
+
+submission date
+
+status
+
+Actions:
+
+Approve
+
+Under Review
+
+Turn Into Activity
+
+Publish Response
+
+Archive
+
+When:
+
+Turn Into Activity
+
+is clicked, pre-populate the activity creation form.
+
+⸻
+
+21. STAFF DAILY CHALLENGE MANAGEMENT
+
+Add management screen.
+
+Fields:
+
+Challenge Title
+
+Instructions
+
+Category
+
+Start Date
+
+End Date
+
+Allow anonymous submissions toggle
+
+Publish toggle
+
+⸻
+
+22. NOTICEBOARD MODE
+
+Add a new read-only display mode.
+
+Route suggestion:
+
+/noticeboard
+
+This is intended for a shared ward television or communal display.
+
+The page should automatically rotate through useful information.
+
+Sections may include:
+
+Current Time
+
+What’s Happening Now
+
+Next Activity
+
+Today’s Activities
+
+Announcements
+
+Popular Activity Suggestions
+
+Today’s Challenge
+
+You Said / We Did
+
+Do not include:
+
+personal requests
+
+staff controls
+
+My Stuff
+
+private information
+
+⸻
+
+23. NOTICEBOARD DESIGN
+
+Noticeboard Mode should:
+
+* work well on a 16:9 television
+* use very large typography
+* be readable from several metres away
+* avoid tiny text
+* automatically refresh data
+* rotate panels every approximately 10–15 seconds
+* use subtle transitions
+* avoid distracting animation
+
+Include:
+
+Scan to open WardSpace
+
+Generate/display a QR code linking to the main WardSpace URL if possible.
+
+If environment URL detection is unreliable, make the public URL configurable.
+
+⸻
+
+24. SECURITY — IMPORTANT NOW THAT THE APP MAY BE PUBLIC
+
+The original demo PIN may have been:
+
+2468
+
+Do NOT continue relying on an exposed/default hard-coded PIN.
+
+Improve prototype staff security.
+
+Requirements:
+
+* staff authentication validated server-side
+* password/PIN must NOT be stored in client-side JavaScript
+* use environment variable for staff credential
+* add server-side staff session
+* use secure cookies where possible
+* protect ALL staff/admin API endpoints
+* hiding a button is NOT authorization
+* add basic login rate limiting
+* add logout
+* expire staff session after reasonable inactivity
+* prevent patient endpoints from calling staff mutation routes
+
+Create environment variable such as:
+
+WARDSPACE_STAFF_PIN
+
+Do not hard-code its value.
+
+If no environment variable exists in development, clearly explain setup in README rather than silently using 2468 in production.
+
+⸻
+
+25. API SECURITY
+
+Review all existing endpoints.
+
+Ensure:
+
+* parameterized SQL queries
+* validation
+* maximum input lengths
+* HTML/script injection protection
+* no arbitrary SQL
+* rate limiting on submissions where practical
+* staff endpoints require staff authentication
+* errors do not expose stack traces or database internals in production
+
+⸻
+
+26. DO NOT COLLECT THESE DATA
+
+WardSpace must continue NOT collecting:
+
+* NHS numbers
+* medical record numbers
+* diagnoses
+* medication information
+* clinical observations
+* suicide/self-harm scores
+* detailed medical histories
+* named health information
+
+Do not introduce fields for these.
+
+⸻
+
+27. VISUAL DESIGN PASS
+
+Perform a full visual consistency pass.
+
+WardSpace should feel:
+
+calm
+
+modern
+
+friendly
+
+credible
+
+simple
+
+mature
+
+not clinical
+
+not childish
+
+Avoid excessive pastel decoration.
+
+Avoid generic AI-generated gradients everywhere.
+
+Avoid large empty hero sections.
+
+Avoid excessive explanatory text.
+
+Prioritize useful information above decorative UI.
+
+⸻
+
+28. MOBILE UX
+
+This product will often be opened on a phone.
+
+Review every page at approximately:
+
+375px width
+
+430px width
+
+Tablet width
+
+Desktop width
+
+Ensure:
+
+no horizontal overflow
+
+no tiny controls
+
+no overflowing cards
+
+no modal content outside viewport
+
+large touch targets
+
+navigation remains obvious
+
+⸻
+
+29. ACCESSIBILITY
+
+Maintain or improve:
+
+semantic HTML
+
+keyboard access
+
+visible focus states
+
+screen reader labels
+
+minimum readable font sizes
+
+sufficient colour contrast
+
+clear errors
+
+large touch controls
+
+Do not communicate status only through colour.
+
+⸻
+
+30. DEMO DATA
+
+Update seed data so the application feels active.
+
+Include realistic demo content:
+
+Today’s schedule
+
+Several evening activities
+
+Several upcoming activities
+
+Popular suggestions
+
+You Said / We Did items
+
+Ward Guide content
+
+Daily challenge
+
+Things To Do content
+
+A few sample requests for Staff mode
+
+Announcements
+
+Do not use identifiable real people.
+
+⸻
+
+31. DATABASE CHANGES
+
+Inspect the existing database before altering it.
+
+Preserve existing tables where appropriate.
+
+Create migrations instead of destroying existing data.
+
+Add tables only where required.
+
+Possible additional tables:
+
+daily_challenges
+
+challenge_submissions
+
+engagement_events
+
+Do not store unnecessary identifiers.
+
+For engagement metrics, store only anonymous aggregate-compatible events.
+
+⸻
+
+32. ENGAGEMENT EVENTS
+
+If useful, track anonymous events such as:
+
+activity_interest_added
+
+suggestion_interest_added
+
+suggestion_submitted
+
+request_submitted
+
+challenge_submission
+
+Do NOT create cross-session user profiles.
+
+Do NOT fingerprint users.
+
+⸻
+
+33. REMOVE DEAD FEATURES
+
+Audit the existing application for:
+
+broken buttons
+
+unused routes
+
+placeholder components
+
+duplicated pages
+
+features made redundant by the new navigation
+
+unused API endpoints
+
+unused CSS
+
+unused dependencies
+
+Remove or consolidate them carefully.
+
+Do NOT leave two versions of the same functionality.
+
+⸻
+
+34. DO NOT REWRITE EVERYTHING
+
+Very important:
+
+Do not replace the existing application architecture unless genuinely necessary.
+
+Reuse:
+
+existing components
+
+database code
+
+API routes
+
+styles
+
+working functionality
+
+Refactor incrementally.
+
+Preserve data.
+
+⸻
+
+35. TESTING
+
+After implementation, manually test:
+
+Patient:
+
+Today page
+
+current/next activity
+
+activity interest
+
+suggest activity
+
+vote on suggestion
+
+request toiletries
+
+request to speak to someone
+
+Things To Do filters
+
+Daily Challenge
+
+Ward Guide search
+
+My Stuff localStorage
+
+You Said / We Did
+
+Noticeboard mode
+
+Staff:
+
+login
+
+logout
+
+session protection
+
+create activity
+
+edit activity
+
+cancel activity
+
+quick announcement
+
+review request
+
+acknowledge request
+
+complete request
+
+review suggestion
+
+turn suggestion into activity
+
+publish You Said / We Did
+
+create Daily Challenge
+
+Test refresh persistence.
+
+Test mobile layout.
+
+Check browser console.
+
+Fix all obvious runtime errors.
+
+⸻
+
+36. README UPDATE
+
+Update README with:
+
+What WardSpace is
+
+Product principles
+
+Current architecture
+
+How to run locally
+
+How to configure environment variables
+
+How staff authentication works
+
+Database structure
+
+API structure
+
+Noticeboard mode
+
+Privacy model
+
+Known limitations
+
+Security limitations
+
+What would be needed before real healthcare deployment
+
+Clearly state:
+
+The current application is a prototype and should not be used to store real patient medical information or replace clinical communication systems.
+
+⸻
+
+37. COMPLETION REPORT
+
+After implementing the changes, give me:
+
+1. Summary of changes made
+2. Files changed
+3. New components
+4. New database migrations
+5. New endpoints
+6. Security changes
+7. Removed/deprecated functionality
+8. Any items you could not complete
+9. Recommended next development priorities
+10. Any bugs or risks I should know about
+
+Do not merely describe what you plan to do.
+
+Inspect the existing app and IMPLEMENT the improvements.
+
+Do not stop after redesigning only the home page.
+
+Continue until the updated application is functional.

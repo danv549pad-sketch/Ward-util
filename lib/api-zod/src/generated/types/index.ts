@@ -6,8 +6,21 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './challengeSubmission';
+export * from './challengeSubmissionInput';
+export * from './challengeSubmissionReceipt';
+export * from './challengeSubmissionStatus';
+export * from './challengeSubmissionUpdate';
+export * from './challengeSubmissionUpdateStatus';
+export * from './currentChallenge';
+export * from './dailyChallenge';
+export * from './dailyChallengeInput';
 export * from './healthStatus';
 export * from './interestResult';
+export * from './listStaffRequestsParams';
+export * from './listStaffRequestsStatus';
+export * from './monthlyEngagementMetrics';
+export * from './staffChallenge';
 export * from './staffPin';
 export * from './staffStatus';
 export * from './wardItem';

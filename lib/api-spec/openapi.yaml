@@ -137,6 +137,118 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StaffStatus"
+  /wardspace/challenges/current:
+    get:
+      operationId: getCurrentDailyChallenge
+      responses:
+        "200":
+          description: Published challenge currently in its active date range, if any
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrentChallenge"
+  /wardspace/challenges/submissions:
+    post:
+      operationId: submitChallengeEntry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChallengeSubmissionInput"
+      responses:
+        "201":
+          description: Anonymous entry received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChallengeSubmissionReceipt"
+  /wardspace/staff/challenges/current:
+    get:
+      operationId: getStaffDailyChallenge
+      responses:
+        "200":
+          description: Current challenge for staff management
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffChallenge"
+        "404":
+          description: No challenge exists
+    put:
+      operationId: saveDailyChallenge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DailyChallengeInput"
+      responses:
+        "200":
+          description: Challenge saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffChallenge"
+  /wardspace/staff/challenges/submissions:
+    get:
+      operationId: listChallengeSubmissions
+      responses:
+        "200":
+          description: All anonymous challenge entries for staff review
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChallengeSubmission"
+  /wardspace/staff/requests:
+    get:
+      operationId: listStaffRequests
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [New, Acknowledged, Completed]
+      responses:
+        "200":
+          description: Staff request queue, optionally filtered by status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WardItem"
+  /wardspace/staff/challenges/submissions/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+    patch:
+      operationId: updateChallengeSubmission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChallengeSubmissionUpdate"
+      responses:
+        "200":
+          description: Submission visibility updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChallengeSubmission"
+  /wardspace/staff/metrics/monthly:
+    get:
+      operationId: getMonthlyEngagementMetrics
+      responses:
+        "200":
+          description: Non-identifiable engagement totals for the current month
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonthlyEngagementMetrics"
 components:
   parameters:
     Kind:
@@ -190,17 +302,17 @@ components:
         title: { type: string, minLength: 1, maxLength: 180 }
         description: { type: string, maxLength: 3000 }
         category: { type: string, maxLength: 80 }
-        date: { type: string }
-        time: { type: string }
-        endTime: { type: string }
+        date: { type: string, maxLength: 10 }
+        time: { type: string, maxLength: 40 }
+        endTime: { type: string, maxLength: 40 }
         location: { type: string, maxLength: 100 }
-        capacity: { type: integer }
-        duration: { type: string }
-        difficulty: { type: string }
-        content: { type: string }
-        preferredTime: { type: string }
-        status: { type: string }
-        response: { type: string }
+        capacity: { type: integer, minimum: 1, maximum: 1000 }
+        duration: { type: string, maxLength: 80 }
+        difficulty: { type: string, maxLength: 80 }
+        content: { type: string, maxLength: 3000 }
+        preferredTime: { type: string, maxLength: 80 }
+        status: { type: string, maxLength: 40 }
+        response: { type: string, maxLength: 3000 }
         published: { type: boolean }
         active: { type: boolean }
     WardItemUpdate:
@@ -209,17 +321,17 @@ components:
         title: { type: string, minLength: 1, maxLength: 180 }
         description: { type: string, maxLength: 3000 }
         category: { type: string, maxLength: 80 }
-        date: { type: string }
-        time: { type: string }
-        endTime: { type: string }
+        date: { type: string, maxLength: 10 }
+        time: { type: string, maxLength: 40 }
+        endTime: { type: string, maxLength: 40 }
         location: { type: string, maxLength: 100 }
-        capacity: { type: integer }
-        duration: { type: string }
-        difficulty: { type: string }
-        content: { type: string }
-        preferredTime: { type: string }
-        status: { type: string }
-        response: { type: string }
+        capacity: { type: integer, minimum: 1, maximum: 1000 }
+        duration: { type: string, maxLength: 80 }
+        difficulty: { type: string, maxLength: 80 }
+        content: { type: string, maxLength: 3000 }
+        preferredTime: { type: string, maxLength: 80 }
+        status: { type: string, maxLength: 40 }
+        response: { type: string, maxLength: 3000 }
         published: { type: boolean }
         active: { type: boolean }
     InterestResult:
@@ -241,9 +353,88 @@ components:
       type: object
       required: [pin]
       properties:
-        pin: { type: string }
+        pin: { type: string, minLength: 1, maxLength: 128 }
     StaffStatus:
       type: object
       required: [authenticated]
       properties:
         authenticated: { type: boolean }
+    DailyChallenge:
+      type: object
+      required: [id, title, instructions, category, startDate, endDate, allowSubmissions, published]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        instructions: { type: string }
+        category: { type: string }
+        startDate: { type: string }
+        endDate: { type: string }
+        allowSubmissions: { type: boolean }
+        published: { type: boolean }
+    CurrentChallenge:
+      type: object
+      required: [challenge, submissions]
+      properties:
+        challenge:
+          oneOf:
+            - $ref: "#/components/schemas/DailyChallenge"
+            - type: "null"
+        submissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChallengeSubmission"
+    StaffChallenge:
+      allOf:
+        - $ref: "#/components/schemas/DailyChallenge"
+        - type: object
+          required: [createdAt, updatedAt]
+          properties:
+            createdAt: { type: string }
+            updatedAt: { type: string }
+    DailyChallengeInput:
+      type: object
+      required: [title, instructions, category, startDate, endDate, allowSubmissions, published]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 180 }
+        instructions: { type: string, maxLength: 3000 }
+        category: { type: string, maxLength: 80 }
+        startDate: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+        endDate: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }
+        allowSubmissions: { type: boolean }
+        published: { type: boolean }
+    ChallengeSubmission:
+      type: object
+      required: [id, challengeId, text, status, createdAt]
+      properties:
+        id: { type: integer }
+        challengeId: { type: integer }
+        text: { type: string, maxLength: 1000 }
+        status: { type: string, enum: [Pending, Published, Hidden] }
+        createdAt: { type: string }
+    ChallengeSubmissionInput:
+      type: object
+      required: [text]
+      properties:
+        text: { type: string, minLength: 1, maxLength: 1000 }
+    ChallengeSubmissionReceipt:
+      type: object
+      required: [received]
+      properties:
+        received: { type: boolean }
+    ChallengeSubmissionUpdate:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [Pending, Published, Hidden] }
+    MonthlyEngagementMetrics:
+      type: object
+      required: [month, suggestionsReceived, suggestionsImplemented, activitiesCreated, activityInterestClicks, suggestionInterestClicks, requestsReceived, challengeEntries]
+      properties:
+        month: { type: string }
+        suggestionsReceived: { type: integer }
+        suggestionsImplemented: { type: integer }
+        activitiesCreated: { type: integer }
+        activityInterestClicks: { type: integer }
+        suggestionInterestClicks: { type: integer }
+        requestsReceived: { type: integer }
+        challengeEntries: { type: integer }

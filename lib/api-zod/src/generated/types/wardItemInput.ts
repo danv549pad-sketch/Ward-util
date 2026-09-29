@@ -16,17 +16,30 @@ export interface WardItemInput {
   description?: string;
   /** @maxLength 80 */
   category?: string;
+  /** @maxLength 10 */
   date?: string;
+  /** @maxLength 40 */
   time?: string;
+  /** @maxLength 40 */
   endTime?: string;
   /** @maxLength 100 */
   location?: string;
+  /**
+     * @minimum 1
+     * @maximum 1000
+     */
   capacity?: number;
+  /** @maxLength 80 */
   duration?: string;
+  /** @maxLength 80 */
   difficulty?: string;
+  /** @maxLength 3000 */
   content?: string;
+  /** @maxLength 80 */
   preferredTime?: string;
+  /** @maxLength 40 */
   status?: string;
+  /** @maxLength 3000 */
   response?: string;
   published?: boolean;
   active?: boolean;

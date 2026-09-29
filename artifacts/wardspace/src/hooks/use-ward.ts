@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  getGetWardStaffStatusQueryKey, getGetWardSummaryQueryKey, getListWardItemsQueryKey,
+  getGetWardStaffStatusQueryKey, getGetWardSummaryQueryKey, getListStaffRequestsQueryKey, getListWardItemsQueryKey,
   useAddWardInterest, useCreateWardItem, useDeleteWardItem, useLoginWardStaff,
   useLogoutWardStaff, useRemoveWardInterest, useUpdateWardItem,
 } from '@workspace/api-client-react';
@@ -18,6 +18,7 @@ export function useWardActions() {
   const refresh = async () => {
     await Promise.all([
       ...kinds.map(kind => qc.invalidateQueries({ queryKey: getListWardItemsQueryKey(kind) })),
+      qc.invalidateQueries({ queryKey: getListStaffRequestsQueryKey() }),
       qc.invalidateQueries({ queryKey: getGetWardSummaryQueryKey() }),
     ]);
   };
@@ -29,6 +30,7 @@ export function useWardActions() {
   const login = useLoginWardStaff({ mutation: { onSuccess: async () => { await qc.invalidateQueries({ queryKey: getGetWardStaffStatusQueryKey() }); await refresh(); } } });
   const logout = useLogoutWardStaff({ mutation: { onSuccess: async () => {
     qc.removeQueries({ queryKey: getListWardItemsQueryKey('requests') });
+    qc.removeQueries({ queryKey: getListStaffRequestsQueryKey() });
     await qc.invalidateQueries({ queryKey: getGetWardStaffStatusQueryKey() });
     await refresh();
   } } });

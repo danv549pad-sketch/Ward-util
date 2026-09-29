@@ -20,8 +20,17 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ChallengeSubmission,
+  ChallengeSubmissionInput,
+  ChallengeSubmissionReceipt,
+  ChallengeSubmissionUpdate,
+  CurrentChallenge,
+  DailyChallengeInput,
   HealthStatus,
   InterestResult,
+  ListStaffRequestsParams,
+  MonthlyEngagementMetrics,
+  StaffChallenge,
   StaffPin,
   StaffStatus,
   WardItem,
@@ -857,6 +866,615 @@ export function useGetWardStaffStatus<TData = Awaited<ReturnType<typeof getWardS
  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getGetWardStaffStatusQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetCurrentDailyChallengeUrl = () => {
+
+
+
+
+  return `/api/wardspace/challenges/current`
+}
+
+export const getCurrentDailyChallenge = async ( options?: Parameters<typeof customFetch>[1]): Promise<CurrentChallenge> => {
+
+  return customFetch<CurrentChallenge>(getGetCurrentDailyChallengeUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetCurrentDailyChallengeQueryKey = () => {
+    return [
+    `/api/wardspace/challenges/current`
+    ] as const;
+    }
+
+
+export const getGetCurrentDailyChallengeQueryOptions = <TData = Awaited<ReturnType<typeof getCurrentDailyChallenge>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCurrentDailyChallenge>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetCurrentDailyChallengeQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCurrentDailyChallenge>>> = ({ signal }) => getCurrentDailyChallenge({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCurrentDailyChallenge>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCurrentDailyChallengeQueryResult = NonNullable<Awaited<ReturnType<typeof getCurrentDailyChallenge>>>
+export type GetCurrentDailyChallengeQueryError = ErrorType<unknown>
+
+
+
+export function useGetCurrentDailyChallenge<TData = Awaited<ReturnType<typeof getCurrentDailyChallenge>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCurrentDailyChallenge>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetCurrentDailyChallengeQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSubmitChallengeEntryUrl = () => {
+
+
+
+
+  return `/api/wardspace/challenges/submissions`
+}
+
+export const submitChallengeEntry = async (challengeSubmissionInput: ChallengeSubmissionInput, options?: Parameters<typeof customFetch>[1]): Promise<ChallengeSubmissionReceipt> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ChallengeSubmissionReceipt>(getSubmitChallengeEntryUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(challengeSubmissionInput)
+  }
+);}
+
+
+
+
+
+export const getSubmitChallengeEntryMutationKey = () => ['submitChallengeEntry'] as const;
+
+export const getSubmitChallengeEntryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitChallengeEntry>>, TError,SubmitChallengeEntryMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof submitChallengeEntry>>, TError,SubmitChallengeEntryMutationVariables, TContext> => {
+
+const mutationKey = getSubmitChallengeEntryMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof submitChallengeEntry>>, SubmitChallengeEntryMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  submitChallengeEntry(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SubmitChallengeEntryMutationResult = NonNullable<Awaited<ReturnType<typeof submitChallengeEntry>>>
+    export type SubmitChallengeEntryMutationBody = BodyType<ChallengeSubmissionInput>
+    export type SubmitChallengeEntryMutationError = ErrorType<unknown>
+    export type SubmitChallengeEntryMutationVariables = {data: BodyType<ChallengeSubmissionInput>}
+
+    export const useSubmitChallengeEntry = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof submitChallengeEntry>>, TError,SubmitChallengeEntryMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof submitChallengeEntry>>,
+        TError,
+        SubmitChallengeEntryMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSubmitChallengeEntryMutationOptions(options));
+    }
+
+export const getGetStaffDailyChallengeUrl = () => {
+
+
+
+
+  return `/api/wardspace/staff/challenges/current`
+}
+
+export const getStaffDailyChallenge = async ( options?: Parameters<typeof customFetch>[1]): Promise<StaffChallenge> => {
+
+  return customFetch<StaffChallenge>(getGetStaffDailyChallengeUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetStaffDailyChallengeQueryKey = () => {
+    return [
+    `/api/wardspace/staff/challenges/current`
+    ] as const;
+    }
+
+
+export const getGetStaffDailyChallengeQueryOptions = <TData = Awaited<ReturnType<typeof getStaffDailyChallenge>>, TError = ErrorType<void>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getStaffDailyChallenge>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetStaffDailyChallengeQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getStaffDailyChallenge>>> = ({ signal }) => getStaffDailyChallenge({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getStaffDailyChallenge>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetStaffDailyChallengeQueryResult = NonNullable<Awaited<ReturnType<typeof getStaffDailyChallenge>>>
+export type GetStaffDailyChallengeQueryError = ErrorType<void>
+
+
+
+export function useGetStaffDailyChallenge<TData = Awaited<ReturnType<typeof getStaffDailyChallenge>>, TError = ErrorType<void>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getStaffDailyChallenge>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetStaffDailyChallengeQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getSaveDailyChallengeUrl = () => {
+
+
+
+
+  return `/api/wardspace/staff/challenges/current`
+}
+
+export const saveDailyChallenge = async (dailyChallengeInput: DailyChallengeInput, options?: Parameters<typeof customFetch>[1]): Promise<StaffChallenge> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<StaffChallenge>(getSaveDailyChallengeUrl(),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(dailyChallengeInput)
+  }
+);}
+
+
+
+
+
+export const getSaveDailyChallengeMutationKey = () => ['saveDailyChallenge'] as const;
+
+export const getSaveDailyChallengeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveDailyChallenge>>, TError,SaveDailyChallengeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveDailyChallenge>>, TError,SaveDailyChallengeMutationVariables, TContext> => {
+
+const mutationKey = getSaveDailyChallengeMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveDailyChallenge>>, SaveDailyChallengeMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  saveDailyChallenge(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SaveDailyChallengeMutationResult = NonNullable<Awaited<ReturnType<typeof saveDailyChallenge>>>
+    export type SaveDailyChallengeMutationBody = BodyType<DailyChallengeInput>
+    export type SaveDailyChallengeMutationError = ErrorType<unknown>
+    export type SaveDailyChallengeMutationVariables = {data: BodyType<DailyChallengeInput>}
+
+    export const useSaveDailyChallenge = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveDailyChallenge>>, TError,SaveDailyChallengeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof saveDailyChallenge>>,
+        TError,
+        SaveDailyChallengeMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSaveDailyChallengeMutationOptions(options));
+    }
+
+export const getListChallengeSubmissionsUrl = () => {
+
+
+
+
+  return `/api/wardspace/staff/challenges/submissions`
+}
+
+export const listChallengeSubmissions = async ( options?: Parameters<typeof customFetch>[1]): Promise<ChallengeSubmission[]> => {
+
+  return customFetch<ChallengeSubmission[]>(getListChallengeSubmissionsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListChallengeSubmissionsQueryKey = () => {
+    return [
+    `/api/wardspace/staff/challenges/submissions`
+    ] as const;
+    }
+
+
+export const getListChallengeSubmissionsQueryOptions = <TData = Awaited<ReturnType<typeof listChallengeSubmissions>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listChallengeSubmissions>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListChallengeSubmissionsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listChallengeSubmissions>>> = ({ signal }) => listChallengeSubmissions({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listChallengeSubmissions>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListChallengeSubmissionsQueryResult = NonNullable<Awaited<ReturnType<typeof listChallengeSubmissions>>>
+export type ListChallengeSubmissionsQueryError = ErrorType<unknown>
+
+
+
+export function useListChallengeSubmissions<TData = Awaited<ReturnType<typeof listChallengeSubmissions>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listChallengeSubmissions>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListChallengeSubmissionsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getListStaffRequestsUrl = (params?: ListStaffRequestsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/wardspace/staff/requests?${stringifiedParams}` : `/api/wardspace/staff/requests`
+}
+
+export const listStaffRequests = async (params?: ListStaffRequestsParams, options?: Parameters<typeof customFetch>[1]): Promise<WardItem[]> => {
+
+  return customFetch<WardItem[]>(getListStaffRequestsUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListStaffRequestsQueryKey = (params?: ListStaffRequestsParams,) => {
+    return [
+    `/api/wardspace/staff/requests`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getListStaffRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listStaffRequests>>, TError = ErrorType<unknown>>(params?: ListStaffRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listStaffRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListStaffRequestsQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listStaffRequests>>> = ({ signal }) => listStaffRequests(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listStaffRequests>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListStaffRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof listStaffRequests>>>
+export type ListStaffRequestsQueryError = ErrorType<unknown>
+
+
+
+export function useListStaffRequests<TData = Awaited<ReturnType<typeof listStaffRequests>>, TError = ErrorType<unknown>>(
+ params?: ListStaffRequestsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listStaffRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListStaffRequestsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getUpdateChallengeSubmissionUrl = (id: number,) => {
+
+
+
+
+  return `/api/wardspace/staff/challenges/submissions/${id}`
+}
+
+export const updateChallengeSubmission = async (id: number,
+    challengeSubmissionUpdate: ChallengeSubmissionUpdate, options?: Parameters<typeof customFetch>[1]): Promise<ChallengeSubmission> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ChallengeSubmission>(getUpdateChallengeSubmissionUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(challengeSubmissionUpdate)
+  }
+);}
+
+
+
+
+
+export const getUpdateChallengeSubmissionMutationKey = () => ['updateChallengeSubmission'] as const;
+
+export const getUpdateChallengeSubmissionMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateChallengeSubmission>>, TError,UpdateChallengeSubmissionMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateChallengeSubmission>>, TError,UpdateChallengeSubmissionMutationVariables, TContext> => {
+
+const mutationKey = getUpdateChallengeSubmissionMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateChallengeSubmission>>, UpdateChallengeSubmissionMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateChallengeSubmission(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateChallengeSubmissionMutationResult = NonNullable<Awaited<ReturnType<typeof updateChallengeSubmission>>>
+    export type UpdateChallengeSubmissionMutationBody = BodyType<ChallengeSubmissionUpdate>
+    export type UpdateChallengeSubmissionMutationError = ErrorType<unknown>
+    export type UpdateChallengeSubmissionMutationVariables = {id: number;data: BodyType<ChallengeSubmissionUpdate>}
+
+    export const useUpdateChallengeSubmission = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateChallengeSubmission>>, TError,UpdateChallengeSubmissionMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateChallengeSubmission>>,
+        TError,
+        UpdateChallengeSubmissionMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUpdateChallengeSubmissionMutationOptions(options));
+    }
+
+export const getGetMonthlyEngagementMetricsUrl = () => {
+
+
+
+
+  return `/api/wardspace/staff/metrics/monthly`
+}
+
+export const getMonthlyEngagementMetrics = async ( options?: Parameters<typeof customFetch>[1]): Promise<MonthlyEngagementMetrics> => {
+
+  return customFetch<MonthlyEngagementMetrics>(getGetMonthlyEngagementMetricsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetMonthlyEngagementMetricsQueryKey = () => {
+    return [
+    `/api/wardspace/staff/metrics/monthly`
+    ] as const;
+    }
+
+
+export const getGetMonthlyEngagementMetricsQueryOptions = <TData = Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMonthlyEngagementMetricsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>> = ({ signal }) => getMonthlyEngagementMetrics({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetMonthlyEngagementMetricsQueryResult = NonNullable<Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>>
+export type GetMonthlyEngagementMetricsQueryError = ErrorType<unknown>
+
+
+
+export function useGetMonthlyEngagementMetrics<TData = Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMonthlyEngagementMetrics>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetMonthlyEngagementMetricsQueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

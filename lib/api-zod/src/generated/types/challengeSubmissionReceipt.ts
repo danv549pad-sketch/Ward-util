@@ -6,10 +6,6 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface StaffPin {
-  /**
-     * @minLength 1
-     * @maxLength 128
-     */
-  pin: string;
+export interface ChallengeSubmissionReceipt {
+  received: boolean;
 }

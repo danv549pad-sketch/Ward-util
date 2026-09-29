@@ -53,7 +53,27 @@ export const createWardItemBodyDescriptionMax = 3000;
 
 export const createWardItemBodyCategoryMax = 80;
 
+export const createWardItemBodyDateMax = 10;
+
+export const createWardItemBodyTimeMax = 40;
+
+export const createWardItemBodyEndTimeMax = 40;
+
 export const createWardItemBodyLocationMax = 100;
+
+export const createWardItemBodyCapacityMax = 1000;
+
+export const createWardItemBodyDurationMax = 80;
+
+export const createWardItemBodyDifficultyMax = 80;
+
+export const createWardItemBodyContentMax = 3000;
+
+export const createWardItemBodyPreferredTimeMax = 80;
+
+export const createWardItemBodyStatusMax = 40;
+
+export const createWardItemBodyResponseMax = 3000;
 
 
 
@@ -61,17 +81,17 @@ export const CreateWardItemBody = zod.object({
   "title": zod.string().min(1).max(createWardItemBodyTitleMax),
   "description": zod.string().max(createWardItemBodyDescriptionMax).optional(),
   "category": zod.string().max(createWardItemBodyCategoryMax).optional(),
-  "date": zod.string().optional(),
-  "time": zod.string().optional(),
-  "endTime": zod.string().optional(),
+  "date": zod.string().max(createWardItemBodyDateMax).optional(),
+  "time": zod.string().max(createWardItemBodyTimeMax).optional(),
+  "endTime": zod.string().max(createWardItemBodyEndTimeMax).optional(),
   "location": zod.string().max(createWardItemBodyLocationMax).optional(),
-  "capacity": zod.number().int().optional(),
-  "duration": zod.string().optional(),
-  "difficulty": zod.string().optional(),
-  "content": zod.string().optional(),
-  "preferredTime": zod.string().optional(),
-  "status": zod.string().optional(),
-  "response": zod.string().optional(),
+  "capacity": zod.number().int().min(1).max(createWardItemBodyCapacityMax).optional(),
+  "duration": zod.string().max(createWardItemBodyDurationMax).optional(),
+  "difficulty": zod.string().max(createWardItemBodyDifficultyMax).optional(),
+  "content": zod.string().max(createWardItemBodyContentMax).optional(),
+  "preferredTime": zod.string().max(createWardItemBodyPreferredTimeMax).optional(),
+  "status": zod.string().max(createWardItemBodyStatusMax).optional(),
+  "response": zod.string().max(createWardItemBodyResponseMax).optional(),
   "published": zod.boolean().optional(),
   "active": zod.boolean().optional()
 })
@@ -112,7 +132,27 @@ export const updateWardItemBodyDescriptionMax = 3000;
 
 export const updateWardItemBodyCategoryMax = 80;
 
+export const updateWardItemBodyDateMax = 10;
+
+export const updateWardItemBodyTimeMax = 40;
+
+export const updateWardItemBodyEndTimeMax = 40;
+
 export const updateWardItemBodyLocationMax = 100;
+
+export const updateWardItemBodyCapacityMax = 1000;
+
+export const updateWardItemBodyDurationMax = 80;
+
+export const updateWardItemBodyDifficultyMax = 80;
+
+export const updateWardItemBodyContentMax = 3000;
+
+export const updateWardItemBodyPreferredTimeMax = 80;
+
+export const updateWardItemBodyStatusMax = 40;
+
+export const updateWardItemBodyResponseMax = 3000;
 
 
 
@@ -120,17 +160,17 @@ export const UpdateWardItemBody = zod.object({
   "title": zod.string().min(1).max(updateWardItemBodyTitleMax).optional(),
   "description": zod.string().max(updateWardItemBodyDescriptionMax).optional(),
   "category": zod.string().max(updateWardItemBodyCategoryMax).optional(),
-  "date": zod.string().optional(),
-  "time": zod.string().optional(),
-  "endTime": zod.string().optional(),
+  "date": zod.string().max(updateWardItemBodyDateMax).optional(),
+  "time": zod.string().max(updateWardItemBodyTimeMax).optional(),
+  "endTime": zod.string().max(updateWardItemBodyEndTimeMax).optional(),
   "location": zod.string().max(updateWardItemBodyLocationMax).optional(),
-  "capacity": zod.number().int().optional(),
-  "duration": zod.string().optional(),
-  "difficulty": zod.string().optional(),
-  "content": zod.string().optional(),
-  "preferredTime": zod.string().optional(),
-  "status": zod.string().optional(),
-  "response": zod.string().optional(),
+  "capacity": zod.number().int().min(1).max(updateWardItemBodyCapacityMax).optional(),
+  "duration": zod.string().max(updateWardItemBodyDurationMax).optional(),
+  "difficulty": zod.string().max(updateWardItemBodyDifficultyMax).optional(),
+  "content": zod.string().max(updateWardItemBodyContentMax).optional(),
+  "preferredTime": zod.string().max(updateWardItemBodyPreferredTimeMax).optional(),
+  "status": zod.string().max(updateWardItemBodyStatusMax).optional(),
+  "response": zod.string().max(updateWardItemBodyResponseMax).optional(),
   "published": zod.boolean().optional(),
   "active": zod.boolean().optional()
 })
@@ -199,8 +239,12 @@ export const GetWardSummaryResponse = zod.object({
 })
 
 
+export const loginWardStaffBodyPinMax = 128;
+
+
+
 export const LoginWardStaffBody = zod.object({
-  "pin": zod.string()
+  "pin": zod.string().min(1).max(loginWardStaffBodyPinMax)
 })
 
 export const LoginWardStaffResponse = zod.object({
@@ -215,6 +259,171 @@ export const LogoutWardStaffResponse = zod.object({
 
 export const GetWardStaffStatusResponse = zod.object({
   "authenticated": zod.boolean()
+})
+
+
+export const getCurrentDailyChallengeResponseSubmissionsItemTextMax = 1000;
+
+
+
+export const GetCurrentDailyChallengeResponse = zod.object({
+  "challenge": zod.union([zod.object({
+  "id": zod.number().int(),
+  "title": zod.string(),
+  "instructions": zod.string(),
+  "category": zod.string(),
+  "startDate": zod.string(),
+  "endDate": zod.string(),
+  "allowSubmissions": zod.boolean(),
+  "published": zod.boolean()
+}),zod.null()]),
+  "submissions": zod.array(zod.object({
+  "id": zod.number().int(),
+  "challengeId": zod.number().int(),
+  "text": zod.string().max(getCurrentDailyChallengeResponseSubmissionsItemTextMax),
+  "status": zod.enum(['Pending', 'Published', 'Hidden']),
+  "createdAt": zod.string()
+}))
+})
+
+
+export const submitChallengeEntryBodyTextMax = 1000;
+
+
+
+export const SubmitChallengeEntryBody = zod.object({
+  "text": zod.string().min(1).max(submitChallengeEntryBodyTextMax)
+})
+
+export const SubmitChallengeEntryResponse = zod.object({
+  "received": zod.boolean()
+})
+
+
+export const GetStaffDailyChallengeResponse = zod.object({
+  "id": zod.number().int(),
+  "title": zod.string(),
+  "instructions": zod.string(),
+  "category": zod.string(),
+  "startDate": zod.string(),
+  "endDate": zod.string(),
+  "allowSubmissions": zod.boolean(),
+  "published": zod.boolean()
+}).and(zod.object({
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+}))
+
+
+export const saveDailyChallengeBodyTitleMax = 180;
+
+export const saveDailyChallengeBodyInstructionsMax = 3000;
+
+export const saveDailyChallengeBodyCategoryMax = 80;
+
+export const saveDailyChallengeBodyStartDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const saveDailyChallengeBodyEndDateRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+
+
+export const SaveDailyChallengeBody = zod.object({
+  "title": zod.string().min(1).max(saveDailyChallengeBodyTitleMax),
+  "instructions": zod.string().max(saveDailyChallengeBodyInstructionsMax),
+  "category": zod.string().max(saveDailyChallengeBodyCategoryMax),
+  "startDate": zod.string().regex(saveDailyChallengeBodyStartDateRegExp),
+  "endDate": zod.string().regex(saveDailyChallengeBodyEndDateRegExp),
+  "allowSubmissions": zod.boolean(),
+  "published": zod.boolean()
+})
+
+export const SaveDailyChallengeResponse = zod.object({
+  "id": zod.number().int(),
+  "title": zod.string(),
+  "instructions": zod.string(),
+  "category": zod.string(),
+  "startDate": zod.string(),
+  "endDate": zod.string(),
+  "allowSubmissions": zod.boolean(),
+  "published": zod.boolean()
+}).and(zod.object({
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+}))
+
+
+export const listChallengeSubmissionsResponseTextMax = 1000;
+
+
+
+export const ListChallengeSubmissionsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "challengeId": zod.number().int(),
+  "text": zod.string().max(listChallengeSubmissionsResponseTextMax),
+  "status": zod.enum(['Pending', 'Published', 'Hidden']),
+  "createdAt": zod.string()
+})
+export const ListChallengeSubmissionsResponse = zod.array(ListChallengeSubmissionsResponseItem)
+
+
+export const ListStaffRequestsQueryParams = zod.object({
+  "status": zod.enum(['New', 'Acknowledged', 'Completed']).optional()
+})
+
+export const ListStaffRequestsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "kind": zod.string(),
+  "title": zod.string(),
+  "description": zod.string().optional(),
+  "category": zod.string().optional(),
+  "date": zod.string().optional(),
+  "time": zod.string().optional(),
+  "endTime": zod.string().optional(),
+  "location": zod.string().optional(),
+  "capacity": zod.number().int().optional(),
+  "duration": zod.string().optional(),
+  "difficulty": zod.string().optional(),
+  "content": zod.string().optional(),
+  "preferredTime": zod.string().optional(),
+  "status": zod.string().optional(),
+  "response": zod.string().optional(),
+  "published": zod.boolean().optional(),
+  "active": zod.boolean().optional(),
+  "interestCount": zod.number().int(),
+  "interested": zod.boolean(),
+  "createdAt": zod.string()
+})
+export const ListStaffRequestsResponse = zod.array(ListStaffRequestsResponseItem)
+
+
+export const UpdateChallengeSubmissionParams = zod.object({
+  "id": zod.coerce.number().int()
+})
+
+export const UpdateChallengeSubmissionBody = zod.object({
+  "status": zod.enum(['Pending', 'Published', 'Hidden'])
+})
+
+export const updateChallengeSubmissionResponseTextMax = 1000;
+
+
+
+export const UpdateChallengeSubmissionResponse = zod.object({
+  "id": zod.number().int(),
+  "challengeId": zod.number().int(),
+  "text": zod.string().max(updateChallengeSubmissionResponseTextMax),
+  "status": zod.enum(['Pending', 'Published', 'Hidden']),
+  "createdAt": zod.string()
+})
+
+
+export const GetMonthlyEngagementMetricsResponse = zod.object({
+  "month": zod.string(),
+  "suggestionsReceived": zod.number().int(),
+  "suggestionsImplemented": zod.number().int(),
+  "activitiesCreated": zod.number().int(),
+  "activityInterestClicks": zod.number().int(),
+  "suggestionInterestClicks": zod.number().int(),
+  "requestsReceived": zod.number().int(),
+  "challengeEntries": zod.number().int()
 })
 
 

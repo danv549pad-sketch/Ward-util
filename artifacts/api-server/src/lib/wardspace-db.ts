@@ -46,6 +46,34 @@ CREATE TABLE IF NOT EXISTS suggestion_interest (
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   PRIMARY KEY (suggestion_id, anonymous_session_id)
 );
+CREATE TABLE IF NOT EXISTS daily_challenges (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  instructions TEXT NOT NULL DEFAULT '',
+  category TEXT NOT NULL DEFAULT '',
+  start_date TEXT NOT NULL,
+  end_date TEXT NOT NULL,
+  allow_submissions INTEGER NOT NULL DEFAULT 0,
+  published INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS daily_challenges_dates ON daily_challenges(start_date, end_date, published);
+CREATE TABLE IF NOT EXISTS challenge_submissions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  challenge_id INTEGER NOT NULL REFERENCES daily_challenges(id) ON DELETE CASCADE,
+  text TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'Pending' CHECK (status IN ('Pending', 'Published', 'Hidden')),
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS challenge_submissions_challenge ON challenge_submissions(challenge_id, status, created_at);
+CREATE TABLE IF NOT EXISTS engagement_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_type TEXT NOT NULL CHECK (event_type IN ('activity_interest_added', 'suggestion_interest_added', 'suggestion_submitted', 'request_submitted', 'challenge_submission')),
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS engagement_events_date_type ON engagement_events(created_at, event_type);
 `);
 
 type Fields = Record<string, string | number | boolean | undefined>;
@@ -59,6 +87,9 @@ export function insert(kind: Kind, fields: Fields) {
   const result = sqlite.prepare(`INSERT INTO ${tableFor(kind)} (title, category, status, date, time, data) VALUES (?, ?, ?, ?, ?, ?)`)
     .run(text(fields.title), text(fields.category), text(fields.status), text(fields.date), text(fields.time), JSON.stringify(fields));
   return Number(result.lastInsertRowid);
+}
+export function trackEngagement(event: "activity_interest_added" | "suggestion_interest_added" | "suggestion_submitted" | "request_submitted" | "challenge_submission") {
+  sqlite.prepare("INSERT INTO engagement_events (event_type) VALUES (?)").run(event);
 }
 function seed(kind: Kind, rows: Fields[]) {
   if ((sqlite.prepare(`SELECT COUNT(*) AS n FROM ${tableFor(kind)}`).get() as { n: number }).n) return;
@@ -86,11 +117,15 @@ seed("activities", [
   ["Music Session", 6, "15:00", "Activity room", "Music", "Listen, share or make music."],
   ["Gardening", 7, "10:30", "Garden", "Outdoors", "Help tend the ward garden."],
   ["Beginner Coding Session", 8, "14:00", "Activity room", "Technology", "Explore the basics of a webpage."],
+  ["Pizza and Film", 9, "19:00", "Lounge", "Film", "Choose a film together and enjoy a relaxed evening."],
+  ["Karaoke Hour", 10, "18:30", "Activity room", "Music", "Pick a favourite song or come along to listen."],
+  ["Indoor Garden Club", 12, "11:30", "Activity room", "Outdoors", "Plan a small container garden together."],
 ].map(([title, offset, time, location, category, description]) => ({ title: String(title), date: iso(Number(offset)), time: String(time), location: String(location), category: String(category), description: String(description), status: "Published", capacity: 12 })));
 seed("activity-suggestions", [
   { title: "Pool tournament", description: "Could we have a friendly tournament?", category: "Games", preferredTime: "Evening", status: "Approved" },
   { title: "Photography walk", description: "Take photos of interesting things outside.", category: "Creative", preferredTime: "Afternoon", status: "Approved" },
   { title: "Book club", description: "Choose a short story and talk about it.", category: "Reading", preferredTime: "No preference", status: "Approved" },
+  { title: "Fictional restaurant menu", description: "Invent a menu for a restaurant on the moon.", category: "Creative", preferredTime: "Any time", status: "Approved" },
 ]);
 seed("requests", [
   { title: "Could I have some clean towels?", category: "Bedding", status: "New", location: "Lounge" },
@@ -130,6 +165,13 @@ seed("things-to-do", [
   ["Pick a playlist", "Choose five songs around a theme and share why you chose them.", "Music", "15 minutes"],
   ["Read a short story", "Choose a story and note one question it leaves you with.", "Reading", "30 minutes"],
   ["Conversation starter", "Ask someone about a favourite place or hobby.", "Social", "5 minutes"],
+  ["Design a flag", "Create a flag for an imaginary island and decide what each colour means.", "Creative", "15 minutes"],
+  ["Six-line story", "Write a story in exactly six lines, with an unexpected final line.", "Writing", "15 minutes"],
+  ["Terrible movie synopsis", "Describe a familiar kind of film as dramatically badly as possible.", "Writing", "5 minutes"],
+  ["Twenty-piece build", "Make a small structure from exactly 20 everyday craft pieces.", "Creative", "30 minutes"],
+  ["Word puzzle", "Find as many smaller words as you can inside the word 'noticeboard'.", "Games", "15 minutes"],
+  ["Make a trivia round", "Write five friendly questions about a topic you enjoy.", "Social", "30 minutes"],
+  ["Gentle movement break", "Try a few comfortable stretches or walk around the room if you feel like it.", "Movement", "5 minutes"],
 ].map(([title, description, category, duration]) => ({ title, description, category, duration, active: true })));
 seed("learning", [
   ["Build your first webpage", "Learn basic HTML and create a page with a heading, paragraph and image.", "Coding", "30 minutes", "Beginner", "Start with <h1>Your heading</h1>, then add a <p>paragraph</p> and an <img> with alt text. Save the file as index.html and open it in a browser."],
@@ -139,3 +181,19 @@ seed("learning", [
   ["Write a better CV summary", "Draft a short introduction focused on skills and experience.", "CV & Careers", "30 minutes", "Beginner", "Try two sentences describing what you can do and what you want to contribute. Example: 'Organised and dependable retail assistant with experience helping customers and managing stock. Looking to bring strong communication skills to a new team.'"],
   ["Photo composition basics", "Notice framing, light and perspective in everyday photos.", "Photography", "30 minutes", "Beginner", "Choose an everyday object. Take three pictures from different angles and compare which tells the clearest story."],
 ].map(([title, description, category, duration, difficulty, content]) => ({ title, description, category, duration, difficulty, content, active: true })));
+
+const challengeCount = (sqlite.prepare("SELECT COUNT(*) AS n FROM daily_challenges").get() as { n: number }).n;
+if (!challengeCount) {
+  const start = iso(0);
+  const end = iso(365);
+  sqlite.prepare(`INSERT INTO daily_challenges (title, instructions, category, start_date, end_date, allow_submissions, published)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`).run(
+    "Design a flag for an imaginary place",
+    "Create a flag for an imaginary island, town or planet. Give it a name and decide what its colours and symbols represent.",
+    "Creative",
+    start,
+    end,
+    1,
+    1,
+  );
+}

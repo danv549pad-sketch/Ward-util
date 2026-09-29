@@ -43,17 +43,30 @@ export interface WardItemInput {
   description?: string;
   /** @maxLength 80 */
   category?: string;
+  /** @maxLength 10 */
   date?: string;
+  /** @maxLength 40 */
   time?: string;
+  /** @maxLength 40 */
   endTime?: string;
   /** @maxLength 100 */
   location?: string;
+  /**
+     * @minimum 1
+     * @maximum 1000
+     */
   capacity?: number;
+  /** @maxLength 80 */
   duration?: string;
+  /** @maxLength 80 */
   difficulty?: string;
+  /** @maxLength 3000 */
   content?: string;
+  /** @maxLength 80 */
   preferredTime?: string;
+  /** @maxLength 40 */
   status?: string;
+  /** @maxLength 3000 */
   response?: string;
   published?: boolean;
   active?: boolean;
@@ -69,17 +82,30 @@ export interface WardItemUpdate {
   description?: string;
   /** @maxLength 80 */
   category?: string;
+  /** @maxLength 10 */
   date?: string;
+  /** @maxLength 40 */
   time?: string;
+  /** @maxLength 40 */
   endTime?: string;
   /** @maxLength 100 */
   location?: string;
+  /**
+     * @minimum 1
+     * @maximum 1000
+     */
   capacity?: number;
+  /** @maxLength 80 */
   duration?: string;
+  /** @maxLength 80 */
   difficulty?: string;
+  /** @maxLength 3000 */
   content?: string;
+  /** @maxLength 80 */
   preferredTime?: string;
+  /** @maxLength 40 */
   status?: string;
+  /** @maxLength 3000 */
   response?: string;
   published?: boolean;
   active?: boolean;
@@ -99,10 +125,120 @@ export interface WardSummary {
 }
 
 export interface StaffPin {
+  /**
+     * @minLength 1
+     * @maxLength 128
+     */
   pin: string;
 }
 
 export interface StaffStatus {
   authenticated: boolean;
 }
+
+export interface DailyChallenge {
+  id: number;
+  title: string;
+  instructions: string;
+  category: string;
+  startDate: string;
+  endDate: string;
+  allowSubmissions: boolean;
+  published: boolean;
+}
+
+export type ChallengeSubmissionStatus = typeof ChallengeSubmissionStatus[keyof typeof ChallengeSubmissionStatus];
+
+
+export const ChallengeSubmissionStatus = {
+  Pending: 'Pending',
+  Published: 'Published',
+  Hidden: 'Hidden',
+} as const;
+
+export interface ChallengeSubmission {
+  id: number;
+  challengeId: number;
+  /** @maxLength 1000 */
+  text: string;
+  status: ChallengeSubmissionStatus;
+  createdAt: string;
+}
+
+export interface CurrentChallenge {
+  challenge: DailyChallenge | null;
+  submissions: ChallengeSubmission[];
+}
+
+export type StaffChallenge = DailyChallenge & {
+  createdAt: string;
+  updatedAt: string;
+};
+
+export interface DailyChallengeInput {
+  /**
+     * @minLength 1
+     * @maxLength 180
+     */
+  title: string;
+  /** @maxLength 3000 */
+  instructions: string;
+  /** @maxLength 80 */
+  category: string;
+  /** @pattern ^\d{4}-\d{2}-\d{2}$ */
+  startDate: string;
+  /** @pattern ^\d{4}-\d{2}-\d{2}$ */
+  endDate: string;
+  allowSubmissions: boolean;
+  published: boolean;
+}
+
+export interface ChallengeSubmissionInput {
+  /**
+     * @minLength 1
+     * @maxLength 1000
+     */
+  text: string;
+}
+
+export interface ChallengeSubmissionReceipt {
+  received: boolean;
+}
+
+export type ChallengeSubmissionUpdateStatus = typeof ChallengeSubmissionUpdateStatus[keyof typeof ChallengeSubmissionUpdateStatus];
+
+
+export const ChallengeSubmissionUpdateStatus = {
+  Pending: 'Pending',
+  Published: 'Published',
+  Hidden: 'Hidden',
+} as const;
+
+export interface ChallengeSubmissionUpdate {
+  status: ChallengeSubmissionUpdateStatus;
+}
+
+export interface MonthlyEngagementMetrics {
+  month: string;
+  suggestionsReceived: number;
+  suggestionsImplemented: number;
+  activitiesCreated: number;
+  activityInterestClicks: number;
+  suggestionInterestClicks: number;
+  requestsReceived: number;
+  challengeEntries: number;
+}
+
+export type ListStaffRequestsParams = {
+status?: ListStaffRequestsStatus;
+};
+
+export type ListStaffRequestsStatus = typeof ListStaffRequestsStatus[keyof typeof ListStaffRequestsStatus];
+
+
+export const ListStaffRequestsStatus = {
+  New: 'New',
+  Acknowledged: 'Acknowledged',
+  Completed: 'Completed',
+} as const;
 

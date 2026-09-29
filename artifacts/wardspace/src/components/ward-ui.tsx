@@ -6,32 +6,29 @@ import { useWardActions, type Kind } from '@/hooks/use-ward';
 
 const nav = [
   { to: '/', label: 'Today', icon: Home },
-  { to: '/activities', label: 'Activities', icon: CalendarDays },
-  { to: '/things-to-do', label: 'Things to do', icon: Sparkles },
-  { to: '/guide', label: 'Ward guide', icon: BookOpen },
-  { to: '/requests', label: 'Requests & ideas', icon: MessageSquareText },
-  { to: '/my-stay', label: 'My stay', icon: ClipboardList },
-  { to: '/about', label: 'About', icon: Info },
-  { to: '/staff', label: 'Staff area', icon: Shield },
+  { to: '/discover', label: 'Discover', icon: Compass },
+  { to: '/ask', label: 'Ask / Suggest', icon: MessageSquareText },
+  { to: '/my-stuff', label: 'My Stuff', icon: ClipboardList },
 ] as const;
 
 export function Shell({ children }: { children: ReactNode }) {
   const [path] = useLocation();
-  return <div className="min-h-[100dvh] lg:flex">
-    <aside className="hidden lg:flex lg:w-[246px] xl:w-[280px] fixed inset-y-0 left-0 flex-col bg-[#e9ece3] border-r border-[#d8dfd5] px-5 py-8 z-20">
-      <Link href="/" className="flex items-center gap-3 px-3 mb-12" data-testid="link-brand"><Mark /><span className="display text-[25px]">WardSpace<span className="text-[#b77e61]">.</span></span></Link>
-      <p className="eyebrow px-4 mb-4">Find your way around</p>
-      <nav className="space-y-1.5">{nav.map(({ to, label, icon: Icon }) => <Link key={to} href={to} data-testid={`link-nav-${label.toLowerCase().replaceAll(' ','-')}`} className={`flex items-center gap-3 rounded-xl min-h-[48px] px-4 text-sm font-semibold transition-colors ${path === to ? 'bg-[#fcfaf5] text-[#294d42] shadow-sm' : 'text-[#65766b] hover:bg-[#dfe6db]'}`}><Icon size={18} strokeWidth={1.8} />{label}</Link>)}</nav>
-      <div className="mt-auto px-4 pt-8 text-xs leading-relaxed text-[#758579]">A quieter way to find the everyday things.</div>
+  const active = (to:string) => path === to || (to === '/discover' && ['/activities','/things-to-do','/guide'].includes(path)) || (to === '/ask' && path === '/requests') || (to === '/my-stuff' && path === '/my-stay');
+  return <div className="app-shell min-h-[100dvh] lg:flex">
+    <aside className="sidebar hidden lg:flex lg:w-[246px] xl:w-[280px] fixed inset-y-0 left-0 flex-col px-5 py-8 z-20">
+      <Link href="/" className="flex items-center gap-3 px-3 mb-11" data-testid="link-brand"><Mark /><span className="display text-[25px]">WardSpace<span className="text-[#b77e61]">.</span></span></Link>
+      <p className="eyebrow px-4 mb-4">Your ward, at a glance</p>
+      <nav aria-label="Main navigation" className="space-y-1.5">{nav.map(({ to, label, icon: Icon }) => <Link key={to} href={to} data-testid={`link-nav-${label.toLowerCase().replaceAll(' ','-')}`} aria-current={active(to)?'page':undefined} className={`nav-link ${active(to) ? 'active' : ''}`}><Icon size={19} strokeWidth={1.8} />{label}</Link>)}</nav>
+      <div className="mt-auto px-3 pt-8 text-xs leading-relaxed text-[#758579]"><p className="mb-3">Everyday information, in one place.</p><Link href="/staff" className="underline underline-offset-4 inline-flex items-center gap-2" data-testid="link-staff"><Shield size={14}/> Staff access</Link></div>
     </aside>
     <div className="flex-1 min-w-0 lg:ml-[246px] xl:ml-[280px]">
       <header className="lg:hidden sticky top-0 z-30 bg-[#f8f6ef]/95 backdrop-blur-md border-b border-[#e1dfd5] px-5 h-[68px] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" data-testid="link-mobile-brand"><Mark /><span className="display text-[24px]">WardSpace<span className="text-[#b77e61]">.</span></span></Link>
         <span className="eyebrow text-[10px]">Your space</span>
       </header>
-       <nav aria-label="Main navigation" className="lg:hidden flex overflow-x-auto gap-2 px-4 py-3 bg-[#f8f6ef] border-b border-[#e1dfd5] scrollbar-hide">{nav.map(({ to, label }) => <Link key={to} href={to} data-testid={`link-mobile-${label.toLowerCase().replaceAll(' ','-')}`} className={`mobile-nav-link whitespace-nowrap min-h-[44px] inline-flex items-center px-4 rounded-full text-[13px] font-bold ${path === to ? 'is-active bg-[#355a4e]' : 'bg-[#e9ece3]'}`}>{label}</Link>)}</nav>
+       <nav aria-label="Main navigation" className="lg:hidden grid grid-cols-4 gap-1 px-2 py-2 bg-[#f8f6ef] border-b border-[#e1dfd5]">{nav.map(({ to, label, icon:Icon }) => <Link key={to} href={to} aria-current={active(to)?'page':undefined} data-testid={`link-mobile-${label.toLowerCase().replaceAll(' ','-')}`} className={`mobile-nav-link min-w-0 min-h-[54px] flex flex-col items-center justify-center gap-1 px-1 rounded-xl text-[11px] leading-tight font-bold text-center ${active(to) ? 'is-active bg-[#355a4e]' : ''}`}><Icon size={18}/><span>{label}</span></Link>)}</nav>
       <main className="max-w-[1190px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-14 py-9 md:py-12 pb-24 fade-in">{children}</main>
-      <footer className="max-w-[1190px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-14 pb-9 text-sm text-[#7c887c] border-t border-[#e3e0d7] pt-6 flex flex-wrap justify-between gap-3"><span>WardSpace · Everyday information, in one place.</span><Link href="/about" className="underline underline-offset-4" data-testid="link-footer-about">Privacy & about</Link></footer>
+       <footer className="max-w-[1190px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-14 pb-9 text-sm text-[#6b7b70] border-t border-[#e3e0d7] pt-6 flex flex-wrap justify-between gap-3"><span>WardSpace · Everyday information, in one place.</span><span className="flex gap-5"><Link href="/about" className="underline underline-offset-4" data-testid="link-footer-about">Privacy & about</Link><Link href="/staff" className="underline underline-offset-4 lg:hidden" data-testid="link-footer-staff">Staff access</Link></span></footer>
     </div>
   </div>;
 }
