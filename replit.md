@@ -1,6 +1,6 @@
-# [Project name]
+# WardSpace
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Non-clinical prototype companion for everyday ward information, activities and practical communication.
 
 ## Run & Operate
 
@@ -9,36 +9,38 @@ _Replace the heading above with the project's name, and this line with one sente
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- WardSpace uses a SQLite file by default. `WARDSPACE_DB_PATH` optionally chooses a durable path; `WARDSPACE_STAFF_PIN` overrides the prototype PIN. `SESSION_SECRET` signs cookies.
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
+- WardSpace DB: SQLite via Node's built-in `node:sqlite` (the unused workspace Postgres scaffold remains untouched)
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- Frontend: `artifacts/wardspace/src/`; API: `artifacts/api-server/src/routes/wardspace.ts`; schema and fictional seed: `artifacts/api-server/src/lib/wardspace-db.ts`; contract: `lib/api-spec/openapi.yaml`.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The PIN and anonymous cookies are prototype mechanisms, not production-grade staff identity.
+- Shared content lives in SQLite; My Stay and check-in must stay in browser storage and never be sent to the API.
+- Practical requests are not emergency or clinical channels.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Patient schedule, activities and interest, suggestions, things to do and learning, ward guide, practical requests, personal organiser; staff content management.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+Keep WardSpace non-clinical: never add medical advice, clinical assessment, NHS numbers, diagnoses, medication records or emergency-monitoring claims.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Local SQLite app files are not guaranteed to survive redeployment. Configure durable storage before publishing as a real shared service.
 
 ## Pointers
 

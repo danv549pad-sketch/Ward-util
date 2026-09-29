@@ -1,0 +1,77 @@
+import { useEffect, useState, type FormEvent } from 'react';
+import { LogOut, Pencil, Plus, Trash2, X } from 'lucide-react';
+import { getListWardItemsQueryKey, useGetWardStaffStatus, useGetWardSummary, useListWardItems, type WardItem, type WardItemInput } from '@workspace/api-client-react';
+import { errorMessage, kindNames, kinds, useWardActions, type Kind } from '@/hooks/use-ward';
+import { PageHeading, State } from '@/components/ward-ui';
+
+const blank: WardItemInput = {title:'',description:'',category:'',date:'',time:'',endTime:'',location:'',capacity:undefined,duration:'',difficulty:'',content:'',preferredTime:'',status:'',response:'',published:true,active:true};
+const labels: Partial<Record<keyof WardItemInput,string>> = {title:'Title',description:'Description',category:'Category',date:'Date',time:'Start time',endTime:'End time',location:'Location',capacity:'Capacity',duration:'Duration',difficulty:'Difficulty',content:'Long-form content or answer',preferredTime:'Preferred time',status:'Status',response:'Staff response'};
+const fields: (keyof WardItemInput)[] = ['title','description','category','date','time','endTime','location','capacity','duration','difficulty','preferredTime','content','status','response'];
+function ItemEditor({ kind, item, initial, onClose }: { kind: Kind; item: WardItem | null; initial?: Partial<WardItemInput>; onClose: () => void }) {
+  const [form,setForm] = useState<WardItemInput>(item ? { ...blank, ...item } : {...blank,...initial});
+  const [error,setError] = useState('');
+  const actions = useWardActions();
+  useEffect(()=>{setForm(item ? {...blank,...item} : {...blank,...initial});setError('')},[item,kind,initial]);
+  async function submit(e: FormEvent) {
+    e.preventDefault(); setError('');
+    const payload: WardItemInput = {...form,title:form.title.trim()};
+    if (!payload.title) {setError('Please add a title.');return}
+    try { if (item) await actions.update.mutateAsync({kind,id:item.id,data:payload}); else await actions.create.mutateAsync({kind,data:payload}); onClose(); }
+    catch(err) {setError(errorMessage(err))}
+  }
+  return <div className="fixed inset-0 z-50 bg-[#263c36]/55 p-3 sm:p-6 overflow-y-auto flex items-start justify-center" role="dialog" aria-modal="true" aria-label={item?'Edit content':'New content'} onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}>
+    <div className="surface w-full max-w-[760px] my-4 p-6 sm:p-9 shadow-xl"><div className="flex justify-between gap-4 items-start mb-6"><div><p className="eyebrow">{kindNames[kind]}</p><h2 className="display text-3xl mt-2">{item?'Edit entry':'New entry'}</h2></div><button type="button" className="btn btn-soft !p-2 !min-w-[44px]" onClick={onClose} aria-label="Close editor" data-testid="button-close-editor"><X size={19}/></button></div>
+      <form onSubmit={submit} className="grid sm:grid-cols-2 gap-4">
+         {fields.map(key => <div key={key} className={['title','description','content','response'].includes(key)?'sm:col-span-2':''}><label htmlFor={`editor-${key}`} className="label">{labels[key]}</label>{['description','content','response'].includes(key) ? <textarea id={`editor-${key}`} className="field" maxLength={key==='description'?3000:undefined} value={String(form[key]??'')} onChange={e=>setForm(v=>({...v,[key]:e.target.value}))} data-testid={`input-editor-${key}`}/> : <input id={`editor-${key}`} className="field" type={key==='date'?'date':key==='time'||key==='endTime'?'time':key==='capacity'?'number':'text'} min={key==='capacity'?0:undefined} required={key==='title'} maxLength={key==='title'?180:key==='category'?80:undefined} value={typeof form[key] === 'boolean' ? '' : form[key]??''} onChange={e=>setForm(v=>({...v,[key]:key==='capacity'?(e.target.value===''?undefined:Number(e.target.value)):e.target.value}))} data-testid={`input-editor-${key}`} />}</div>)}
+        {kind==='schedule'&&<div className="sm:col-span-2"><label className="label" htmlFor="schedule-repeat">Repeat</label><select id="schedule-repeat" className="field" disabled value="none"><option value="none">Does not repeat — recurring events coming later</option></select></div>}
+        <div className="sm:col-span-2 flex flex-wrap gap-5 py-2"><label className="flex gap-2 items-center text-sm font-semibold"><input type="checkbox" checked={!!form.published} onChange={e=>setForm(v=>({...v,published:e.target.checked}))} className="w-5 h-5 accent-[#375b50]" data-testid="checkbox-published"/> {kind==='suggestions'?'Publish response publicly':'Published'}</label><label className="flex gap-2 items-center text-sm font-semibold"><input type="checkbox" checked={!!form.active} onChange={e=>setForm(v=>({...v,active:e.target.checked}))} className="w-5 h-5 accent-[#375b50]" data-testid="checkbox-active"/> Active</label></div>
+        {kind==='suggestions'&&<p className="sm:col-span-2 text-xs text-[#69786d]">Only publish a response after reviewing it for privacy. Public responses can appear in You Said / We Did.</p>}
+        {error && <p className="sm:col-span-2 text-[#a34f43]" role="alert" data-testid="error-editor">{error}</p>}
+        <div className="sm:col-span-2 flex flex-wrap justify-end gap-2 pt-3 border-t border-[#e7e4da]"><button type="button" className="btn btn-outline" onClick={onClose} data-testid="button-cancel-editor">Cancel</button><button type="submit" className="btn btn-primary" disabled={actions.create.isPending||actions.update.isPending} data-testid="button-save-editor">{actions.create.isPending||actions.update.isPending?'Saving…':item?'Save changes':'Create entry'}</button></div>
+      </form>
+    </div>
+  </div>;
+}
+
+export function StaffPage() {
+  const status = useGetWardStaffStatus();
+  const summary = useGetWardSummary();
+  const actions = useWardActions();
+  const [pin,setPin] = useState('');
+  const [loginError,setLoginError] = useState('');
+  const [kind,setKind] = useState<Kind>('schedule');
+  const [editing,setEditing] = useState<WardItem|null>(null);
+  const [editorKind,setEditorKind] = useState<Kind>('schedule');
+  const [initial,setInitial] = useState<Partial<WardItemInput>|undefined>();
+  const [editorOpen,setEditorOpen] = useState(false);
+  const [error,setError] = useState('');
+  const list = useListWardItems(kind,{query:{enabled:!!status.data?.authenticated,queryKey:getListWardItemsQueryKey(kind)}});
+  function openEditor(editKind:Kind,item:WardItem|null=null,seed?:Partial<WardItemInput>){setEditorKind(editKind);setEditing(item);setInitial(seed);setEditorOpen(true)}
+  async function setItem(item:WardItem,data:Partial<WardItemInput>){setError('');try{await actions.update.mutateAsync({kind,id:item.id,data})}catch(err){setError(errorMessage(err))}}
+  if (status.isLoading) return <><PageHeading eyebrow="For staff" title="Staff area."/><State loading>{null}</State></>;
+  if (status.isError) return <><PageHeading eyebrow="For staff" title="Staff area."/><State error retry={()=>status.refetch()}>{null}</State></>;
+  if (!status.data?.authenticated) return <><PageHeading eyebrow="For staff" title="A place to keep things current." description="Staff can update activities, everyday information, requests, and the noticeboard here."/><div className="surface max-w-[490px] p-7 md:p-9"><p className="eyebrow mb-3">Staff sign in</p><h2 className="display text-3xl mb-3">Enter your PIN</h2><p className="text-sm text-[#69786d] mb-6">Access is checked securely by the WardSpace server. Demo PIN: 2468.</p><form onSubmit={async e=>{e.preventDefault();setLoginError('');try {await actions.login.mutateAsync({data:{pin}});setPin('')}catch(err){setLoginError(errorMessage(err))}}}><label className="label" htmlFor="staff-pin">Staff PIN</label><input id="staff-pin" type="password" inputMode="numeric" autoComplete="off" required className="field mb-4" value={pin} onChange={e=>setPin(e.target.value)} data-testid="input-staff-pin"/>{loginError && <p role="alert" className="text-[#a34f43] text-sm mb-4" data-testid="error-login">{loginError}</p>}<button className="btn btn-primary w-full" disabled={actions.login.isPending} data-testid="button-staff-login">{actions.login.isPending?'Checking…':'Enter staff area'}</button></form></div></>;
+  async function deleteItem(item: WardItem) { if (!window.confirm(`Delete “${item.title}”? This cannot be undone.`))return;setError('');try {await actions.remove.mutateAsync({kind,id:item.id})}catch(err){setError(errorMessage(err))} }
+  return <><PageHeading eyebrow="Staff workspace" title="Keep the everyday moving." description="Manage shared content and respond to non-urgent messages." action={<button className="btn btn-outline" disabled={actions.logout.isPending} onClick={async()=>{setError('');try{await actions.logout.mutateAsync()}catch(err){setError(errorMessage(err))}}} data-testid="button-staff-logout"><LogOut size={16}/> Sign out</button>}/>
+    <div className="grid grid-cols-2 xl:grid-cols-5 gap-3 mb-7">{([
+      ['Today’s activities',summary.data?.todayActivities],
+      ['Coming up',summary.data?.upcomingActivities],
+      ['Open requests',summary.data?.openRequests],
+      ['New suggestions',summary.data?.newSuggestions],
+      ['Announcements',summary.data?.announcements],
+    ] as const).map(([label,value])=><div className="surface p-4 sm:p-5" key={label}><p className="eyebrow !tracking-[.09em]">{label}</p><strong className="display text-3xl block mt-2" data-testid={`value-staff-${label.toLowerCase().replaceAll(' ','-').replace('’','')}`}>{summary.isLoading?'—':value??'—'}</strong></div>)}</div>
+    {summary.isError&&<p className="text-[#9d5547] mb-5">Couldn’t load the overview. <button className="underline" onClick={()=>summary.refetch()} data-testid="button-retry-staff-summary">Try again</button></p>}
+    {kind==='requests'&&<p className="inset p-4 mb-5 text-sm text-[#536c5d]">WardSpace practical requests should not replace normal ward communication or clinical escalation procedures. These are non-urgent messages, not an emergency channel.</p>}
+    <div className="surface p-3 mb-7 flex gap-2 overflow-x-auto">{kinds.map(k=><button key={k} className={`btn whitespace-nowrap !min-h-[41px] !text-[.82rem] ${kind===k?'btn-primary':'btn-soft'}`} onClick={()=>setKind(k)} data-testid={`button-staff-kind-${k}`}>{kindNames[k]}</button>)}</div>
+    <div className="flex items-center justify-between gap-4 mb-5"><div><p className="eyebrow">Managing</p><h2 className="display text-[2rem]">{kindNames[kind]}</h2></div><button onClick={()=>openEditor(kind)} className="btn btn-primary" data-testid="button-create-staff"><Plus size={17}/> Add new</button></div>
+    {error && <div role="alert" className="bg-[#f5e5dd] text-[#9d5547] p-4 rounded-xl mb-4" data-testid="error-staff">{error}</div>}
+    <State loading={list.isLoading} error={list.isError} empty={!list.data?.length} retry={()=>list.refetch()}><div className="space-y-3">{list.data?.map(item=><article key={item.id} className="surface p-5 flex flex-col gap-4" data-testid={`staff-item-${item.id}`}><div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div className="min-w-0"><div className="flex flex-wrap gap-2 mb-2"><span className="pill">{item.status||kindNames[kind]}</span>{item.category&&<span className="pill">{item.category}</span>}{item.published===false && <span className="pill bg-[#f3e7da]">Unpublished</span>}{item.active===false && <span className="pill bg-[#f3e7da]">Inactive</span>}</div><h3 className="font-bold text-lg">{item.title}</h3><p className="text-sm text-[#69786d] line-clamp-2 mt-1">{item.description||item.content||'No additional detail'}</p>{item.location&&<p className="text-xs text-[#718075] mt-2">Location: {item.location}</p>}{(kind==='activities'||kind==='activity-suggestions') && <p className="text-xs text-[#718075] mt-2">{item.interestCount} interested</p>}{(kind==='requests'||kind==='suggestions'||kind==='activity-suggestions')&&<p className="text-xs text-[#718075] mt-2">Submitted {new Date(item.createdAt).toLocaleString()}</p>}{item.response&&<p className="text-sm text-[#52695c] mt-2">Response: {item.response}</p>}</div><div className="flex flex-wrap gap-2 shrink-0"><button className="btn btn-soft !min-h-[42px]" onClick={()=>openEditor(kind,item)} data-testid={`button-edit-${item.id}`}><Pencil size={15}/> Edit</button><button className="btn btn-danger !min-h-[42px]" disabled={actions.remove.isPending} onClick={()=>deleteItem(item)} data-testid={`button-delete-${item.id}`}><Trash2 size={15}/> Delete</button></div></div>
+      <div className="flex flex-wrap gap-2 border-t border-[#e8e5da] pt-3">
+        {kind==='requests'&&(['New','Acknowledged','Completed'] as const).filter(s=>s.toLowerCase()!==item.status?.toLowerCase()).map(s=><button key={s} className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:s})} data-testid={`button-request-${s.toLowerCase()}-${item.id}`}>Mark {s}</button>)}
+        {kind==='activities'&&<>{item.status?.toLowerCase()!=='published'&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:'Published',published:true,active:true})} data-testid={`button-activity-publish-${item.id}`}>Publish</button>}{item.status?.toLowerCase()!=='cancelled'&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:'Cancelled',active:false})} data-testid={`button-activity-cancel-${item.id}`}>Cancel</button>}{item.status?.toLowerCase()!=='completed'&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:'Completed'})} data-testid={`button-activity-complete-${item.id}`}>Mark completed</button>}</>}
+        {(kind==='suggestions'||kind==='activity-suggestions')&&<>{item.status?.toLowerCase()!=='approved'&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:'Approved',active:true})} data-testid={`button-approve-${item.id}`}>Approve</button>}{item.status?.toLowerCase()!=='declined'&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{status:'Declined',active:false,published:false})} data-testid={`button-decline-${item.id}`}>Decline</button>}<button className="btn btn-soft !min-h-[40px] !text-xs" onClick={()=>openEditor('activities',null,{title:item.title,description:item.description||'',category:item.category||'',preferredTime:item.preferredTime||'',status:'Draft',published:false})} data-testid={`button-turn-into-activity-${item.id}`}>Turn into activity</button></>}
+        {kind==='suggestions'&&<><button className="btn btn-soft !min-h-[40px] !text-xs" onClick={()=>openEditor(kind,item)} data-testid={`button-publish-response-${item.id}`}>Write / edit public response</button>{item.response&&<button className="btn btn-outline !min-h-[40px] !text-xs" disabled={actions.update.isPending} onClick={()=>setItem(item,{published:!item.published})} data-testid={`button-toggle-response-${item.id}`}>{item.published?'Unpublish response':'Publish response'}</button>}</>}
+      </div></article>)}</div></State>
+    {editorOpen && <ItemEditor kind={editorKind} item={editing} initial={initial} onClose={()=>setEditorOpen(false)}/>}
+  </>;
+}

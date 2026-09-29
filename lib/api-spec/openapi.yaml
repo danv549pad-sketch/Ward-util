@@ -1,22 +1,14 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: WardSpace non-clinical prototype API
 servers:
   - url: /api
-    description: Base API path
-tags:
-  - name: health
-    description: Health operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
-      tags: [health]
-      summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +16,234 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /wardspace/{kind}:
+    parameters:
+      - $ref: "#/components/parameters/Kind"
+    get:
+      operationId: listWardItems
+      responses:
+        "200":
+          description: Visible items (staff see all statuses)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WardItem"
+    post:
+      operationId: createWardItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WardItemInput"
+      responses:
+        "201":
+          description: Created item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WardItem"
+  /wardspace/{kind}/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Kind"
+      - $ref: "#/components/parameters/Id"
+    patch:
+      operationId: updateWardItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WardItemUpdate"
+      responses:
+        "200":
+          description: Updated item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WardItem"
+    delete:
+      operationId: deleteWardItem
+      responses:
+        "204":
+          description: Deleted
+  /wardspace/{kind}/{id}/interest:
+    parameters:
+      - $ref: "#/components/parameters/Kind"
+      - $ref: "#/components/parameters/Id"
+    post:
+      operationId: addWardInterest
+      responses:
+        "200":
+          description: Interest added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterestResult"
+    delete:
+      operationId: removeWardInterest
+      responses:
+        "200":
+          description: Interest removed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterestResult"
+  /wardspace/summary:
+    get:
+      operationId: getWardSummary
+      responses:
+        "200":
+          description: Dashboard counts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WardSummary"
+  /wardspace/staff/login:
+    post:
+      operationId: loginWardStaff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StaffPin"
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffStatus"
+  /wardspace/staff/logout:
+    post:
+      operationId: logoutWardStaff
+      responses:
+        "200":
+          description: Signed out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffStatus"
+  /wardspace/staff/status:
+    get:
+      operationId: getWardStaffStatus
+      responses:
+        "200":
+          description: Session status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffStatus"
 components:
+  parameters:
+    Kind:
+      name: kind
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [schedule, activities, activity-suggestions, requests, suggestions, announcements, ward-guide, things-to-do, learning]
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
-        status:
-          type: string
-      required:
-        - status
-
+        status: { type: string }
+    WardItem:
+      type: object
+      required: [id, title, kind, createdAt, interestCount, interested]
+      properties:
+        id: { type: integer }
+        kind: { type: string }
+        title: { type: string }
+        description: { type: string }
+        category: { type: string }
+        date: { type: string }
+        time: { type: string }
+        endTime: { type: string }
+        location: { type: string }
+        capacity: { type: integer }
+        duration: { type: string }
+        difficulty: { type: string }
+        content: { type: string }
+        preferredTime: { type: string }
+        status: { type: string }
+        response: { type: string }
+        published: { type: boolean }
+        active: { type: boolean }
+        interestCount: { type: integer }
+        interested: { type: boolean }
+        createdAt: { type: string }
+    WardItemInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 180 }
+        description: { type: string, maxLength: 3000 }
+        category: { type: string, maxLength: 80 }
+        date: { type: string }
+        time: { type: string }
+        endTime: { type: string }
+        location: { type: string, maxLength: 100 }
+        capacity: { type: integer }
+        duration: { type: string }
+        difficulty: { type: string }
+        content: { type: string }
+        preferredTime: { type: string }
+        status: { type: string }
+        response: { type: string }
+        published: { type: boolean }
+        active: { type: boolean }
+    WardItemUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 1, maxLength: 180 }
+        description: { type: string, maxLength: 3000 }
+        category: { type: string, maxLength: 80 }
+        date: { type: string }
+        time: { type: string }
+        endTime: { type: string }
+        location: { type: string, maxLength: 100 }
+        capacity: { type: integer }
+        duration: { type: string }
+        difficulty: { type: string }
+        content: { type: string }
+        preferredTime: { type: string }
+        status: { type: string }
+        response: { type: string }
+        published: { type: boolean }
+        active: { type: boolean }
+    InterestResult:
+      type: object
+      required: [interestCount, interested]
+      properties:
+        interestCount: { type: integer }
+        interested: { type: boolean }
+    WardSummary:
+      type: object
+      required: [todayActivities, upcomingActivities, openRequests, newSuggestions, announcements]
+      properties:
+        todayActivities: { type: integer }
+        upcomingActivities: { type: integer }
+        openRequests: { type: integer }
+        newSuggestions: { type: integer }
+        announcements: { type: integer }
+    StaffPin:
+      type: object
+      required: [pin]
+      properties:
+        pin: { type: string }
+    StaffStatus:
+      type: object
+      required: [authenticated]
+      properties:
+        authenticated: { type: boolean }

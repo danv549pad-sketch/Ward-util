@@ -1,0 +1,13 @@
+{
+  "name": "WardSpace",
+  "short_name": "WardSpace",
+  "description": "Everyday ward information and activities",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f7f3",
+  "theme_color": "#315c55",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

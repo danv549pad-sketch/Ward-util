@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "WardSpace"
+description = "A calm non-clinical ward companion for everyday schedules, activities, practical requests, and staff-managed information."
+version = "1.0.0"
+id = "artifacts/wardspace"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25680
+
+[services.development]
+run = "pnpm --filter @workspace/wardspace run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/wardspace", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/wardspace/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25680"
+BASE_PATH = "/"

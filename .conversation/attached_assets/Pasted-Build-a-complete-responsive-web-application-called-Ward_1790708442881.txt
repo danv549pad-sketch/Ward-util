@@ -1,0 +1,1356 @@
+Build a complete responsive web application called WardSpace.
+
+WardSpace is a simple, positive, non-clinical ward companion designed for people staying on an inpatient mental health ward and the staff supporting them.
+
+The purpose is to reduce boredom, improve access to everyday ward information, make activities easier to discover, allow patients to suggest things they would like to do, and reduce repetitive non-clinical questions for staff.
+
+This is a prototype/MVP and MUST NOT behave as a clinical system.
+
+Core safety rule
+
+WardSpace must NOT:
+
+* provide medical advice
+* give medication advice
+* diagnose mental health conditions
+* assess suicide or self-harm risk
+* make clinical recommendations
+* determine whether someone is safe
+* replace communication with clinical staff
+* store NHS numbers
+* store diagnoses
+* store medication records
+* store identifiable health information
+* claim that submitted requests are monitored for emergencies
+
+Where appropriate, display a short message such as:
+
+WardSpace is for everyday ward information and activities only. If you need medical help, feel unsafe, or need urgent assistance, speak directly to a member of staff.
+
+Do not make this message frightening or overly prominent. It should simply be clear.
+
+⸻
+
+TECHNOLOGY
+
+Use a modern but simple stack suitable for Replit.
+
+Preferred stack:
+
+* React
+* TypeScript
+* Tailwind CSS
+* Node.js / Express backend
+* SQLite for the MVP
+* REST API
+* Lucide icons if available
+
+Structure the project properly with separate frontend, backend, components, pages, services and database code.
+
+Do not build an unnecessarily complicated architecture.
+
+The application should work immediately when launched in Replit.
+
+Make it responsive for:
+
+* mobile phones
+* tablets
+* laptops
+* shared ward touchscreen displays
+
+Design mobile-first.
+
+⸻
+
+DESIGN STYLE
+
+The visual style should feel:
+
+* calm
+* modern
+* friendly
+* uncluttered
+* accessible
+* mature rather than childish
+* welcoming without looking overtly medical
+
+Avoid stereotypical mental-health imagery.
+
+Do not fill the interface with hearts, brains, medical crosses or inspirational quotes.
+
+Use:
+
+* large readable typography
+* rounded cards
+* generous spacing
+* large touch targets
+* clear icons
+* simple navigation
+* subtle shadows
+* accessible contrast
+* clear button states
+
+Avoid excessive animation.
+
+The app should feel similar to a high-quality modern public-service application combined with a simple community noticeboard.
+
+Use a soft neutral colour palette with a restrained accent colour.
+
+Include light mode.
+
+Prepare the CSS structure so dark mode could be added later, but dark mode is not required for the MVP.
+
+⸻
+
+USER TYPES
+
+There are two main modes.
+
+Patient mode
+
+No personal login is required for the MVP.
+
+Patients should be able to:
+
+* view today’s schedule
+* view upcoming activities
+* express interest in activities
+* suggest activities
+* view ward information
+* submit non-urgent practical requests
+* submit suggestions
+* browse things to do
+* browse learning activities
+* view announcements
+* optionally create a simple local personal task list
+
+Do not require patients to enter their real name.
+
+When identification is needed for demo purposes, allow optional aliases such as:
+
+* Patient 01
+* Patient 02
+* Guest
+
+⸻
+
+Staff mode
+
+Create a separate staff dashboard.
+
+For the prototype, protect staff mode with a simple configurable PIN.
+
+Default demo PIN:
+
+2468
+
+Make clear in comments/documentation that this is only suitable for a prototype and would need proper authentication in a real deployment.
+
+Staff should be able to:
+
+* create/edit/delete schedule items
+* create/edit/delete activities
+* see activity interest counts
+* review patient activity suggestions
+* approve an activity suggestion
+* decline an activity suggestion
+* review practical requests
+* mark practical requests as acknowledged
+* mark practical requests as completed
+* respond to suggestions
+* create announcements
+* manage Ward Guide content
+* manage Things To Do content
+* manage learning resources
+
+⸻
+
+MAIN NAVIGATION
+
+Patient navigation should contain:
+
+1. Home
+2. Activities
+3. Things To Do
+4. Ward Guide
+5. Requests
+6. My Stay
+
+Use either a mobile bottom navigation bar or an accessible responsive navigation pattern.
+
+Keep navigation extremely simple.
+
+Staff Dashboard should be accessible separately through a discreet Staff button.
+
+⸻
+
+PAGE 1 — HOME
+
+Create a welcoming home dashboard.
+
+Header:
+
+WardSpace
+
+Subheading:
+
+What’s happening today
+
+Display today’s date automatically.
+
+Example sections:
+
+Next up
+
+Large highlighted card showing the next scheduled activity.
+
+Example:
+
+Art Group
+
+11:00 AM
+
+Activity Room
+
+Include:
+
+View activity
+
+⸻
+
+Today’s schedule
+
+Timeline layout.
+
+Example demo schedule:
+
+08:00 — Breakfast
+
+09:00 — Morning meeting
+
+10:30 — Occupational Therapy Group
+
+12:00 — Lunch
+
+13:30 — Walking Group
+
+15:00 — Quiz
+
+17:30 — Dinner
+
+19:00 — Film Night
+
+Schedule cards should contain:
+
+* time
+* activity title
+* location if applicable
+* short description
+* category icon
+
+⸻
+
+Announcements
+
+Examples:
+
+Community meeting moved to 10:00 tomorrow
+
+New books have been added to the lounge
+
+Staff should manage these.
+
+⸻
+
+Quick actions
+
+Large buttons:
+
+* View Activities
+* Request Something
+* Suggest an Activity
+* Ward Guide
+
+⸻
+
+PAGE 2 — ACTIVITIES
+
+Title:
+
+Activities
+
+Subtitle:
+
+See what’s happening and help choose what happens next.
+
+Allow tabs:
+
+* Upcoming
+* Popular
+* Suggestions
+
+Activity card fields:
+
+* activity name
+* category
+* date
+* start time
+* location
+* short description
+* spaces available if relevant
+* number interested
+
+Button:
+
+I’m interested
+
+Clicking again should remove interest.
+
+For the MVP this can be anonymously tracked using browser/session IDs.
+
+Do not collect personal identities.
+
+Example activities:
+
+* Walking Group
+* Art Session
+* Pool Tournament
+* Film Night
+* Board Games
+* Quiz Night
+* Cooking Group
+* Music Session
+* Gardening
+* Beginner Coding Session
+
+⸻
+
+ACTIVITY SUGGESTIONS
+
+Patients should be able to click:
+
+Suggest an activity
+
+Form fields:
+
+Activity idea
+
+Category
+
+Optional short description
+
+Preferred time:
+
+* Morning
+* Afternoon
+* Evening
+* No preference
+
+Submit.
+
+Other users can see approved suggestions and click:
+
+I’d join this
+
+Display:
+
+7 people interested
+
+Do not display who voted.
+
+⸻
+
+PAGE 3 — THINGS TO DO
+
+Title:
+
+Things To Do
+
+Subtitle:
+
+Something to do when you’ve got some spare time.
+
+Categories:
+
+* Creative
+* Games
+* Technology
+* Music
+* Reading
+* Exercise
+* Relaxation
+* Social
+* General Knowledge
+
+Allow filtering by time:
+
+* 5 minutes
+* 15 minutes
+* 30 minutes
+* 1 hour
+* Longer project
+
+Example activities:
+
+15-minute drawing challenge
+
+Choose an object in the room and sketch it without lifting the pen.
+
+Learn something random
+
+Present a randomly selected interesting fact.
+
+Mini coding challenge
+
+Create a simple HTML page.
+
+Write a film review
+
+Pick the last film you watched and rate:
+
+* story
+* acting
+* soundtrack
+* ending
+
+Brain teaser
+
+Provide a simple logic puzzle.
+
+Design something
+
+Design a logo for an imaginary company.
+
+Exercise
+
+A simple optional stretching or movement suggestion.
+
+Do not provide medical or physiotherapy advice.
+
+⸻
+
+LEARN SOMETHING SECTION
+
+Inside Things To Do create a major subsection:
+
+Learn Something
+
+Intro:
+
+Use some spare time to learn something new. Pick how long you’ve got.
+
+Choose time:
+
+* 15 minutes
+* 30 minutes
+* 1 hour
+* Multi-day project
+
+Choose category:
+
+* Digital Skills
+* Coding
+* CV & Careers
+* Money Basics
+* Languages
+* Creative Skills
+* General Knowledge
+* Photography
+* Writing
+
+Create sample learning activities.
+
+Examples:
+
+Build your first webpage
+
+Time: 30 minutes
+
+Difficulty: Beginner
+
+Goal:
+
+Learn basic HTML and create a page containing a heading, paragraph and image.
+
+⸻
+
+How DNS works
+
+Time: 20 minutes
+
+Difficulty: Beginner
+
+Explain DNS in simple terms and provide a short quiz.
+
+⸻
+
+Create a simple monthly budget
+
+Time: 15 minutes
+
+Provide an interactive fictional budgeting exercise.
+
+Do NOT ask users to enter actual bank details.
+
+⸻
+
+Learn ten Spanish phrases
+
+Time: 15 minutes
+
+Include beginner phrases and a mini quiz.
+
+⸻
+
+Write a better CV summary
+
+Time: 30 minutes
+
+Give guidance and an example.
+
+⸻
+
+PAGE 4 — WARD GUIDE
+
+Title:
+
+Ward Guide
+
+Subtitle:
+
+Answers to common everyday questions.
+
+Create searchable expandable FAQ cards.
+
+Demo categories:
+
+* Daily Routine
+* Staff Roles
+* Meals
+* Visiting
+* Phone & Devices
+* Laundry
+* Activities
+* Ward Round
+* Leave
+* Advocacy
+* Feedback & Complaints
+* Discharge Planning
+
+Example FAQ:
+
+What is a ward round?
+
+Explain neutrally that it is generally a meeting where someone’s care and progress are discussed with relevant members of the clinical team.
+
+Finish with:
+
+Exact arrangements vary between wards. Ask a member of staff about how ward rounds work here.
+
+⸻
+
+Who are the different staff?
+
+Example descriptions:
+
+Nurse
+
+Healthcare Support Worker
+
+Occupational Therapist
+
+Psychiatrist
+
+Psychologist
+
+Social Worker
+
+Pharmacist
+
+Advocate
+
+Keep descriptions factual and short.
+
+⸻
+
+Staff should be able to edit all Ward Guide entries.
+
+⸻
+
+PAGE 5 — REQUESTS & SUGGESTIONS
+
+Title:
+
+Requests & Suggestions
+
+Two large options.
+
+Request something
+
+Make clear:
+
+For everyday practical requests only. This is not an emergency or medical request system.
+
+Categories:
+
+* Toiletries
+* Bedding
+* Clothing
+* Laundry
+* Books / Games
+* Room issue
+* Food / Drink question
+* Speak to someone
+* Other practical request
+
+Request form:
+
+Category
+
+Short request
+
+Optional location/room reference
+
+Do not require patient’s name.
+
+After submission show:
+
+Request submitted
+
+If this is urgent or relates to your health or safety, please speak directly to a member of staff.
+
+⸻
+
+Suggest something
+
+Allow ideas about:
+
+* activities
+* ward environment
+* entertainment
+* food suggestions
+* facilities
+* general improvements
+
+Fields:
+
+Title
+
+Suggestion
+
+Optional category
+
+⸻
+
+YOU SAID / WE DID
+
+Within Requests & Suggestions include:
+
+You Said / We Did
+
+This displays anonymous suggestions that staff have publicly responded to.
+
+Example:
+
+YOU SAID
+
+Could we have a pool tournament?
+
+WE DID
+
+A pool tournament has been added for Friday evening.
+
+⸻
+
+YOU SAID
+
+Could there be more books available?
+
+WE DID
+
+We’ve added a book swap shelf in the lounge.
+
+Staff should control whether a suggestion is published here.
+
+⸻
+
+PAGE 6 — MY STAY
+
+This is a simple personal organiser.
+
+For the MVP store this information only in the user’s browser using localStorage.
+
+Do NOT send it to the database.
+
+Explain:
+
+These notes are stored on this device only. They are not part of your medical record.
+
+Sections:
+
+Things I want to ask
+
+Allow adding/removing simple tasks.
+
+Example placeholders:
+
+* Ask about leave
+* Ask about discharge planning
+* Speak to occupational therapy
+
+⸻
+
+Things I need to sort
+
+Examples:
+
+* Contact employer
+* Ask someone to bring clothes
+* Cancel an appointment
+
+⸻
+
+Things I want to do today
+
+Simple checklist.
+
+Examples:
+
+* Attend one activity
+* Call someone
+* Read for 30 minutes
+* Work on a project
+
+Allow:
+
+* add
+* complete
+* delete
+
+Show simple progress:
+
+3 of 5 completed today
+
+Do not gamify mental health.
+
+No streaks.
+
+No scoring wellbeing.
+
+No guilt-based messages.
+
+⸻
+
+OPTIONAL DAILY CHECK-IN
+
+Add a very lightweight optional card.
+
+Question:
+
+How’s today going?
+
+Options:
+
+* Good
+* Okay
+* Difficult
+* Prefer not to say
+
+For the MVP:
+
+Do NOT save this centrally.
+
+Store only locally or do not persist it at all.
+
+If someone chooses Difficult, display:
+
+If you’d like some support, consider speaking with a member of staff.
+
+Do NOT trigger alerts.
+
+Do NOT infer clinical risk.
+
+⸻
+
+STAFF DASHBOARD
+
+Create an attractive desktop/tablet dashboard.
+
+Dashboard cards:
+
+Today’s activities
+
+Upcoming activities
+
+Open practical requests
+
+New suggestions
+
+Announcements
+
+Example:
+
+Today’s activities: 6
+
+Open requests: 4
+
+Suggestions awaiting review: 3
+
+⸻
+
+STAFF — SCHEDULE MANAGEMENT
+
+Staff can:
+
+* add event
+* edit event
+* delete event
+* choose date
+* choose time
+* choose location
+* select category
+* enter description
+
+Allow recurring event field in the interface but recurring scheduling can remain a future feature.
+
+⸻
+
+STAFF — ACTIVITY MANAGEMENT
+
+Table/card view showing:
+
+* activity
+* date
+* location
+* interest count
+* status
+
+Statuses:
+
+* Draft
+* Published
+* Cancelled
+* Completed
+
+Buttons:
+
+Edit
+
+Publish
+
+Cancel
+
+Delete
+
+⸻
+
+STAFF — SUGGESTION MANAGEMENT
+
+Display patient suggestions.
+
+Example:
+
+Pool Tournament
+
+8 people interested
+
+Submitted 29 September
+
+Buttons:
+
+* Approve
+* Decline
+* Turn Into Activity
+* Publish Response
+
+If Turn Into Activity is selected, automatically pre-populate the activity creation form.
+
+⸻
+
+STAFF — REQUEST MANAGEMENT
+
+Display requests with:
+
+* category
+* request
+* submitted time
+* status
+
+Statuses:
+
+* New
+* Acknowledged
+* Completed
+
+Do not display a fake emergency escalation feature.
+
+Include a visible staff note:
+
+WardSpace practical requests should not replace normal ward communication or clinical escalation procedures.
+
+⸻
+
+STAFF — YOU SAID / WE DID
+
+Allow staff to select a suggestion and write a public response.
+
+Fields:
+
+You Said
+
+We Did
+
+Publish toggle
+
+⸻
+
+DATABASE
+
+Create sensible SQLite tables.
+
+Suggested schema:
+
+schedule_events
+
+id
+
+title
+
+description
+
+event_date
+
+start_time
+
+end_time
+
+location
+
+category
+
+created_at
+
+updated_at
+
+⸻
+
+activities
+
+id
+
+title
+
+description
+
+category
+
+event_date
+
+start_time
+
+location
+
+capacity
+
+status
+
+created_at
+
+updated_at
+
+⸻
+
+activity_interest
+
+id
+
+activity_id
+
+anonymous_session_id
+
+created_at
+
+Unique combination:
+
+activity_id + anonymous_session_id
+
+⸻
+
+activity_suggestions
+
+id
+
+title
+
+description
+
+category
+
+preferred_time
+
+status
+
+created_at
+
+⸻
+
+suggestion_interest
+
+id
+
+suggestion_id
+
+anonymous_session_id
+
+created_at
+
+⸻
+
+practical_requests
+
+id
+
+category
+
+request_text
+
+location_reference
+
+status
+
+created_at
+
+updated_at
+
+⸻
+
+general_suggestions
+
+id
+
+title
+
+suggestion_text
+
+category
+
+status
+
+public_response
+
+publish_response
+
+created_at
+
+updated_at
+
+⸻
+
+announcements
+
+id
+
+title
+
+message
+
+active
+
+created_at
+
+updated_at
+
+⸻
+
+ward_guide
+
+id
+
+category
+
+question
+
+answer
+
+display_order
+
+active
+
+⸻
+
+things_to_do
+
+id
+
+title
+
+description
+
+category
+
+duration_minutes
+
+difficulty
+
+content
+
+active
+
+⸻
+
+API
+
+Create clean REST endpoints.
+
+Examples:
+
+GET /api/schedule/today
+
+GET /api/activities
+
+POST /api/activities/:id/interest
+
+DELETE /api/activities/:id/interest
+
+GET /api/activity-suggestions
+
+POST /api/activity-suggestions
+
+POST /api/activity-suggestions/:id/interest
+
+GET /api/requests
+
+POST /api/requests
+
+PATCH /api/requests/:id
+
+GET /api/suggestions
+
+POST /api/suggestions
+
+GET /api/announcements
+
+GET /api/ward-guide
+
+GET /api/things-to-do
+
+Create staff CRUD endpoints where appropriate.
+
+Validate all inputs.
+
+Use parameterized database queries.
+
+Sanitize user-generated content.
+
+Implement basic rate limiting if practical.
+
+⸻
+
+ACCESSIBILITY
+
+Accessibility is important.
+
+Implement:
+
+* semantic HTML
+* keyboard navigation
+* visible focus states
+* ARIA labels where appropriate
+* large buttons
+* readable font sizes
+* adequate contrast
+* screen-reader friendly forms
+* clear validation errors
+
+Avoid tiny text.
+
+Minimum body text should generally be 16px.
+
+Touch targets should ideally be around 44px or larger.
+
+⸻
+
+EMPTY STATES
+
+Create friendly empty states.
+
+Examples:
+
+No activities:
+
+Nothing is scheduled here yet. Check back later.
+
+No requests:
+
+No open requests.
+
+No suggestions:
+
+No suggestions yet. Got an idea? Add one.
+
+⸻
+
+DEMO DATA
+
+Seed the application with realistic demo content.
+
+Do not leave the app empty.
+
+Include:
+
+* today’s timetable
+* several future activities
+* at least 8 Things To Do cards
+* at least 8 Ward Guide questions
+* three announcements
+* three activity suggestions
+* two practical requests
+* three You Said / We Did examples
+
+Use fictional data only.
+
+⸻
+
+PRIVACY PAGE
+
+Create an About & Privacy page.
+
+Explain clearly:
+
+This prototype does not form part of a medical record.
+
+Do not enter confidential medical information.
+
+Patient-facing features are designed to work without names or NHS numbers.
+
+Personal My Stay notes remain on the device in the prototype.
+
+⸻
+
+ABOUT PAGE
+
+Explain:
+
+WardSpace is an experimental project exploring how simple technology could improve everyday life on inpatient wards by making information, activities and practical communication easier to access.
+
+Include:
+
+WardSpace is not intended to replace clinical staff, clinical systems, emergency procedures or professional healthcare advice.
+
+⸻
+
+PWA
+
+Configure the application as a Progressive Web App if reasonably straightforward.
+
+Add:
+
+* app manifest
+* WardSpace name
+* simple generated app icon
+* installable behaviour where supported
+
+Do not allow PWA work to block completion of the main application.
+
+⸻
+
+DEVELOPMENT PRIORITY
+
+Build in this order:
+
+PHASE 1
+
+1. Application shell/navigation
+2. Home page
+3. Activities
+4. Things To Do
+5. Ward Guide
+6. Requests
+7. My Stay
+8. Staff dashboard
+
+PHASE 2
+
+9. SQLite database
+10. REST APIs
+11. Staff CRUD tools
+12. Activity voting
+13. Suggestion voting
+14. You Said / We Did
+
+PHASE 3
+
+15. Accessibility polish
+16. Responsive improvements
+17. PWA support
+18. Privacy/About pages
+19. Seed data
+20. Error handling
+
+Do not stop after creating a landing page.
+
+Build the complete functional MVP.
+
+⸻
+
+DEVELOPMENT RULES
+
+While building:
+
+* run the app regularly
+* fix compile/runtime errors immediately
+* keep components modular
+* avoid giant single files
+* use TypeScript interfaces
+* comment unusual logic
+* remove unused code
+* do not leave broken placeholder buttons
+* make all primary navigation work
+* make forms functional
+* persist shared data in SQLite
+* use localStorage only for My Stay/personal-device information
+* ensure refreshing the browser does not delete shared data
+* provide useful loading and error states
+
+⸻
+
+FINAL DELIVERY
+
+When complete:
+
+1. Run the application.
+2. Check every navigation item.
+3. Test creating an activity.
+4. Test activity interest voting.
+5. Test submitting a suggestion.
+6. Test submitting a practical request.
+7. Test staff PIN login.
+8. Test marking a request completed.
+9. Test creating an announcement.
+10. Test My Stay localStorage.
+11. Fix any visible console/runtime errors.
+12. Ensure mobile layout works.
+13. Add a README.
+
+README should explain:
+
+* what WardSpace is
+* technical architecture
+* how to run it
+* database structure
+* demo staff PIN
+* privacy limitations
+* what would need changing before any real healthcare deployment
+
+At the end, provide me with:
+
+* a summary of what was built
+* project structure
+* database tables
+* API endpoints
+* known limitations
+* recommended next five development tasks
+
+Do not ask me to manually create files that you can create yourself.
+
+Make sensible decisions where details are unspecified and continue building until the MVP is functional.
