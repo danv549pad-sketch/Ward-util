@@ -10,7 +10,14 @@ out-tsc
 
 # dependencies
 node_modules
-artifacts/api-server/data/
+
+# SQLite runtime data
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+/artifacts/api-server/data/
+/artifacts/api-server/artifacts/api-server/data/
 
 # IDEs and editors
 /.idea
@@ -48,3 +55,7 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Replit conversation state and attached agent prompts (keep .agents/memory)
+.conversation/
+/attached_assets/Pasted-*.txt

@@ -1,0 +1,58 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "Gpn-kNqz_SkC-VkgvGLGF"
+uri = "file://screenshots/wardspace-before-my-stuff.jpg"
+type = "image"
+title = "Before — Shared My Stuff"
+description = "375px mobile view before the visual update."
+logical_id = "f05418eb-8bf3-474b-a0fd-f0e94679200a"
+content_hash = "sha256:bb1a4842c9e3a4acd599ae6c2806a465c2e7399e3d787f96c20d1b045faa8547"
+size = 37346
+mtime_ms = 1790714096517
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/f05418eb-8bf3-474b-a0fd-f0e94679200a/76c3c737-f831-4af6-a45b-ce86b04229d3"
+storage_version_token = "1790715033068990"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "MXAVI6vvoPswO0CdQ4w_v"
+uri = "file://screenshots/wardspace-after-my-stuff.jpg"
+type = "image"
+title = "After — Shared My Stuff"
+description = "375px mobile view after the blue-and-teal prototype styling."
+logical_id = "18ae5fb2-1871-4943-bcbc-d5afcf2f352c"
+content_hash = "sha256:b1d2a7fa2087c23fab3a29f6b8a258c077e09e3eecb945a021a4bae3034795e8"
+size = 42441
+mtime_ms = 1790714115794
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/18ae5fb2-1871-4943-bcbc-d5afcf2f352c/66ac27ff-afcc-4587-927c-77e77ecd76d6"
+storage_version_token = "1790715033847457"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "OnJB00IMgvvNa1GDBLoPq"
+uri = "file://screenshots/wardspace-before-noticeboard.jpg"
+type = "image"
+title = "Before — Noticeboard"
+description = "1920×1080 communal display before the visual update."
+logical_id = "723675c6-af5b-4217-bfeb-42453b9977fe"
+content_hash = "sha256:a5233f2cfb99953808219cbbb8459f147c7e24178a62d9f00d722d503c1518ef"
+size = 55497
+mtime_ms = 1790714096520
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/723675c6-af5b-4217-bfeb-42453b9977fe/0906f41d-2f6b-4340-83b2-ce64964af5de"
+storage_version_token = "1790715034596452"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "1NcLNmTa6qEN3BT_C7VXM"
+uri = "file://screenshots/wardspace-after-noticeboard.jpg"
+type = "image"
+title = "After — Noticeboard"
+description = "1920×1080 communal display after the visual update."
+logical_id = "a3be9d12-4c26-4422-84fd-1f21176dd7e0"
+content_hash = "sha256:b391a78d81cde21a438be1a4975c5ff2fc92d5fa22c3877af612420cdd93dca3"
+size = 87092
+mtime_ms = 1790714123969
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/a3be9d12-4c26-4422-84fd-1f21176dd7e0/b2fe3578-1e4c-4c73-9136-22fbea7edbfe"
+storage_version_token = "1790715035308059"
+content_type = "image/jpeg"

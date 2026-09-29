@@ -1,5 +1,5 @@
 import { Router, type IRouter, type Request, type Response } from "express";
-import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
+import { createHmac, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import {
   ListWardItemsParams, ListWardItemsResponse, CreateWardItemParams, CreateWardItemBody, CreateWardItemResponse,
   UpdateWardItemParams, UpdateWardItemBody, UpdateWardItemResponse, DeleteWardItemParams,
@@ -10,10 +10,22 @@ import {
   GetMonthlyEngagementMetricsResponse,
 } from "@workspace/api-zod";
 import { sqlite, tableFor, insert, trackEngagement, type Kind } from "../lib/wardspace-db";
+import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 const pin = process.env.WARDSPACE_STAFF_PIN || "";
-const secret = process.env.SESSION_SECRET || randomUUID();
+const configuredSecret = process.env.SESSION_SECRET?.trim();
+const invalidProductionSecret = !configuredSecret
+  || Buffer.byteLength(configuredSecret, "utf8") < 32
+  || new Set(configuredSecret).size < 8
+  || /^(?:change[-_ ]?me|secret|password|test|development|your[-_ ])/i.test(configuredSecret);
+if (process.env.NODE_ENV === "production" && invalidProductionSecret) {
+  throw new Error("SESSION_SECRET must be configured in production with at least 32 non-placeholder characters.");
+}
+if (process.env.NODE_ENV !== "production" && !configuredSecret) {
+  logger.warn("SESSION_SECRET is not configured; using a temporary development secret.");
+}
+const secret = configuredSecret || randomBytes(32).toString("hex");
 const cookieOptions = { httpOnly: true, sameSite: "lax" as const, secure: process.env.NODE_ENV === "production", path: "/api/wardspace" };
 const sign = (value: string) => createHmac("sha256", secret).update(value).digest("hex");
 const cookies = (req: Request) => Object.fromEntries((req.headers.cookie || "").split(";").map(part => part.trim().split("=")).filter(([key]) => key));
@@ -81,10 +93,21 @@ const visible = (kind: Kind, row: any) => {
 // Basic per-IP guard for submissions and PIN guesses. No request bodies are logged.
 const attempts = new Map<string, { start: number; count: number }>();
 router.use("/wardspace", (req, res, next) => {
-  if (["POST", "PATCH", "DELETE"].includes(req.method)) {
+  if (["POST", "PUT", "PATCH", "DELETE"].includes(req.method)) {
     const origin = req.get("origin");
     try {
-      if (origin && new URL(origin).host !== req.get("host")) { res.status(403).json({ error: "Invalid origin" }); return; }
+      // Compare the browser Origin with the inbound Host. Do not trust forwarded
+      // host/protocol headers here; the deployment proxy must preserve Host.
+      // Comparing host (rather than scheme) allows TLS termination at the proxy.
+      const parsedOrigin = origin ? new URL(origin) : null;
+      const requestHost = req.get("host");
+      if (parsedOrigin && (
+        !["http:", "https:"].includes(parsedOrigin.protocol)
+        || parsedOrigin.username
+        || parsedOrigin.password
+        || !requestHost
+        || parsedOrigin.host.toLowerCase() !== requestHost.toLowerCase()
+      )) { res.status(403).json({ error: "Invalid origin" }); return; }
     } catch {
       res.status(403).json({ error: "Invalid origin" });
       return;
@@ -100,15 +123,19 @@ router.use("/wardspace", (req, res, next) => {
   next();
 });
 router.get("/wardspace/summary", (req, res) => {
-  const count = (table: string, where: string) => (sqlite.prepare(`SELECT COUNT(*) AS n FROM ${table} WHERE ${where}`).get() as { n: number }).n;
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "Europe/London" });
   const isStaff = staff(req, res);
+  const visibleCount = (kind: Kind, predicate: (row: any) => boolean = () => true) =>
+    sqlite.prepare(`SELECT * FROM ${tableFor(kind)}`).all().filter(row => visible(kind, row) && predicate(row)).length;
   res.json(GetWardSummaryResponse.parse({
-    todayActivities: count("activities", `date = '${today}' AND status = 'Published'`),
-    upcomingActivities: count("activities", `date >= '${today}' AND status = 'Published'`),
-    openRequests: isStaff ? count("practical_requests", "status != 'Completed'") : 0,
-    newSuggestions: isStaff ? count("activity_suggestions", "status = 'Pending'") + count("general_suggestions", "status = 'New'") : 0,
-    announcements: count("announcements", "1=1"),
+    todayActivities: visibleCount("activities", row => row.date === today),
+    upcomingActivities: visibleCount("activities", row => row.date >= today),
+    openRequests: isStaff ? (sqlite.prepare("SELECT COUNT(*) AS n FROM practical_requests WHERE status != 'Completed'").get() as { n: number }).n : 0,
+    newSuggestions: isStaff
+      ? (sqlite.prepare("SELECT COUNT(*) AS n FROM activity_suggestions WHERE status = 'Pending'").get() as { n: number }).n
+        + (sqlite.prepare("SELECT COUNT(*) AS n FROM general_suggestions WHERE status = 'New'").get() as { n: number }).n
+      : 0,
+    announcements: visibleCount("announcements"),
   }));
 });
 router.get("/wardspace/staff/status", (req, res) => res.json(GetWardStaffStatusResponse.parse({ authenticated: staff(req, res) })));

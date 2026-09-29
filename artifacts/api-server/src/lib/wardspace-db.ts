@@ -1,6 +1,19 @@
 import { DatabaseSync } from "node:sqlite";
-import { mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { existsSync, linkSync, mkdirSync, mkdtempSync, rmSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+function assertValidDatabase(databasePath: string) {
+  const database = new DatabaseSync(databasePath, { readOnly: true });
+  try {
+    const checks = database.prepare("PRAGMA integrity_check").all() as Array<{ integrity_check: string }>;
+    if (checks.length !== 1 || checks[0]?.integrity_check !== "ok") {
+      throw new Error("SQLite integrity check failed for the database.");
+    }
+  } finally {
+    database.close();
+  }
+}
 
 export const kinds = ["schedule", "activities", "activity-suggestions", "requests", "suggestions", "announcements", "ward-guide", "things-to-do", "learning"] as const;
 export type Kind = typeof kinds[number];
@@ -16,8 +29,50 @@ const tables: Record<Kind, string> = {
   learning: "learning_resources",
 };
 export const tableFor = (kind: Kind) => tables[kind];
-const path = resolve(process.env.WARDSPACE_DB_PATH || "artifacts/api-server/data/wardspace.sqlite");
+const serverRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const defaultPath = resolve(serverRoot, "data/wardspace.sqlite");
+const path = resolve(process.env.WARDSPACE_DB_PATH || defaultPath);
 mkdirSync(dirname(path), { recursive: true });
+
+if (existsSync(path)) {
+  assertValidDatabase(path);
+} else if (!process.env.WARDSPACE_DB_PATH) {
+  const legacyPath = resolve(serverRoot, "artifacts/api-server/data/wardspace.sqlite");
+  if (existsSync(legacyPath)) {
+    const temporaryDirectory = mkdtempSync(join(dirname(path), ".wardspace-db-migration-"));
+    try {
+      const temporaryPath = join(temporaryDirectory, "snapshot.sqlite");
+      const legacy = new DatabaseSync(legacyPath);
+      try {
+        // VACUUM INTO takes a consistent SQLite snapshot, including committed WAL
+        // data, without moving or explicitly deleting the legacy database.
+        // SQLite itself may checkpoint or remove its WAL sidecars on close.
+        const destination = temporaryPath.replaceAll("'", "''");
+        legacy.exec(`VACUUM INTO '${destination}'`);
+      } finally {
+        legacy.close();
+      }
+
+      assertValidDatabase(temporaryPath);
+      try {
+        // Hard-link creation is atomic and fails rather than replacing an
+        // existing destination, even if another process wins the race.
+        linkSync(temporaryPath, path);
+      } catch (error) {
+        if (!existsSync(path)) throw error;
+        // A competing process may have installed the destination. Use it only
+        // if it passes the same integrity check as our snapshot.
+        assertValidDatabase(path);
+      }
+    } finally {
+      // This unique temporary directory contains only our snapshot and any
+      // SQLite sidecars created while validating it.
+      rmSync(temporaryDirectory, { recursive: true, force: true });
+    }
+  }
+}
+
+console.info(`[wardspace-db] Using SQLite database at ${path}`);
 export const sqlite = new DatabaseSync(path);
 sqlite.exec("PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;");
 for (const table of Object.values(tables)) {
