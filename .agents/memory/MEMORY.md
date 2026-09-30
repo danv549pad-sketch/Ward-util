@@ -1,2 +1,3 @@
 - [Managed build environment](build-env.md) — standalone web builds need the routing variables that managed workflows inject.
 - [Staff visual evidence privacy](staff-visual-evidence.md) — use synthetic same-origin fixtures for Staff screenshot audits, not saved copies of private requests.
+- [GitHub connector and Git push](github-sync.md) — attaching the GitHub connector does not necessarily authenticate the Git CLI remote.
