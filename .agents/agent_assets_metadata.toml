@@ -112,3 +112,87 @@ mtime_ms = 1790716091473
 storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/a0e94164-7f96-47c4-ab68-ed349bff2632/dbec8e0d-4a2d-411b-9f6c-e996acd826ce"
 storage_version_token = "1790718340263118"
 content_type = "image/jpeg"
+
+[[outputs]]
+id = "VavTt_naSV_ETNldvJVVo"
+uri = "file://screenshots/wardspace-recurrence/staff-375-quick-update.jpg"
+type = "image"
+title = "Staff Quick Update · 375px"
+description = "Synthetic Staff fixture; no private records or real credentials."
+logical_id = "f43cc603-18cb-4309-888d-0885baa629a5"
+content_hash = "sha256:61a42676b5f030061c9ecc24d3c1ab8673d4e87eb930f684954c43a58785da1a"
+size = 37139
+mtime_ms = 1790757923112
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/f43cc603-18cb-4309-888d-0885baa629a5/a5c3017a-a5d2-4d23-822c-6156b423c33b"
+storage_version_token = "1790758320686851"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "l2QlGsUaaH1_N0mSDpZm7"
+uri = "file://screenshots/wardspace-recurrence/staff-375-challenge.jpg"
+type = "image"
+title = "Staff Challenge · 375px"
+description = "Synthetic Staff fixture; no private records or real credentials."
+logical_id = "7fbfcda1-2f42-400b-b25f-0ae16223ae93"
+content_hash = "sha256:9a7ab761fbe0aad57d06d710f62c6de8986e0c11ae7405854e32ea9a8c77b786"
+size = 50005
+mtime_ms = 1790757923704
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/7fbfcda1-2f42-400b-b25f-0ae16223ae93/514d5f5c-5e08-48e2-ba40-c45b3f33bad6"
+storage_version_token = "1790758321426476"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "_EFAqjYozS3MnDuq6jyKx"
+uri = "file://screenshots/wardspace-recurrence/staff-375-schedule-editor.jpg"
+type = "image"
+title = "Schedule editor · 375px"
+description = "Synthetic Staff fixture; no private records or real credentials."
+logical_id = "098205b9-6ca6-41ab-9a0b-ac3e0ec3ff1f"
+content_hash = "sha256:2444dd388990181141d4466212a606be739a46b44dfb5dab9b7f68b3c2935fb6"
+size = 39663
+mtime_ms = 1790757925052
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/098205b9-6ca6-41ab-9a0b-ac3e0ec3ff1f/deb4d228-ae36-49a6-a394-e169f3803bc5"
+storage_version_token = "1790758322195763"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "wwqzif7X5gUiYC2oIlrXz"
+uri = "file://screenshots/wardspace-recurrence/staff-375-schedule-editor-weekly.jpg"
+type = "image"
+title = "Weekly schedule editor · 375px"
+description = "Synthetic Staff fixture; no private records or real credentials."
+logical_id = "08eaeb53-be72-4332-ab51-2e0bfe7b58e2"
+content_hash = "sha256:6f3cb86fac8494c07390742b7d92ad5b62ef7325e22567f0cbd823816dfc480e"
+size = 33211
+mtime_ms = 1790757925684
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/08eaeb53-be72-4332-ab51-2e0bfe7b58e2/89ef75cc-d041-43de-8457-ec7f15c8968a"
+storage_version_token = "1790758322959634"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "p4qWTCV-cUsQVggKtp641"
+uri = "file://screenshots/wardspace-recurrence/staff-375-long-request-or-suggestion.jpg"
+type = "image"
+title = "Long Staff request · 375px"
+description = "Synthetic Staff fixture; no private records or real credentials."
+logical_id = "ef5d7576-e1a5-4a37-8571-a1bc65621cd0"
+content_hash = "sha256:0d018ee05ce3bcfe41d6b00fd86660d183899b31422f2a2813cc64be8d6bc7a7"
+size = 46418
+mtime_ms = 1790757933460
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/ef5d7576-e1a5-4a37-8571-a1bc65621cd0/d605cee6-5ac4-45d8-9af4-4a3efd4835f0"
+storage_version_token = "1790758323671121"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "3sX6-LvEX6sUrvhv8fPR1"
+uri = "file://screenshots/wardspace-recurrence/patient-today-375.jpg"
+type = "image"
+title = "Patient Today · 375px"
+description = "Rendered patient Today page."
+logical_id = "9aeca20f-3dbc-495d-967a-7533d10fe0f7"
+content_hash = "sha256:6bb6300d59f3f2cf2df468875bc64a45a6a567d5af3c563a06df1d91714739da"
+size = 37144
+mtime_ms = 1790757559632
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/9aeca20f-3dbc-495d-967a-7533d10fe0f7/077ecf46-4b7e-4e76-adba-d3585d15f85f"
+storage_version_token = "1790758324406545"
+content_type = "image/jpeg"

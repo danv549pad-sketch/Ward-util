@@ -12,6 +12,7 @@ export const sharedStuffKey = 'wardspace-shared-my-stuff';
 const activeKey = 'wardspace-shared-session-active';
 const lastActivityKey = 'wardspace-shared-last-activity';
 const resetSignalKey = 'wardspace-shared-reset-signal';
+const sharedGamePrefix = 'wardspace-game:';
 const configuredMinutes = Number(import.meta.env.VITE_SHARED_IDLE_MINUTES);
 export const sharedIdleMs = Number.isFinite(configuredMinutes) && configuredMinutes > 0
   ? Math.max(1000, Math.min(configuredMinutes * 60000, 120 * 60000))
@@ -22,6 +23,10 @@ function clearSharedStorage() {
     sessionStorage.removeItem(sharedStuffKey);
     sessionStorage.removeItem(activeKey);
     sessionStorage.removeItem(lastActivityKey);
+    for (let index = sessionStorage.length - 1; index >= 0; index--) {
+      const key = sessionStorage.key(index);
+      if (key?.startsWith(sharedGamePrefix)) sessionStorage.removeItem(key);
+    }
   } catch { /* No shared data is ever read when storage is unavailable. */ }
 }
 
