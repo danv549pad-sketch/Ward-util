@@ -149,11 +149,12 @@ try {
   assert.equal(endpoints.length, 10);
   assert.ok(endpoints.every(Boolean), 'found every listed word in the grid');
   await tapCell(endpoints[0].a);
+  await waitFor(`document.querySelector('[data-testid="status-word-search"]').textContent.includes('Now tap the last letter')`);
   await tapCell(endpoints[0].b);
-  const found = await evaluate(`document.querySelector('[data-testid="text-word-search-progress"]').textContent`);
-  assert.match(found, /1\s*\/\s*10/, 'two separate pointer taps find a word');
+  await waitFor(`document.querySelector('[data-testid="text-word-search-progress"]').textContent.includes('1 / 10')`);
   for (const path of endpoints.slice(1)) {
     await tapCell(path.a);
+    await waitFor(`document.querySelector('[data-testid="status-word-search"]').textContent.includes('Now tap the last letter')`);
     await tapCell(path.b);
   }
   await waitFor(`!!document.querySelector('[data-testid="status-word-search-complete"]')`);
@@ -188,8 +189,9 @@ try {
   await visit('/games/word-search', 'game-word-search');
   const sharedWord = (await evaluate(wordPathsExpression))[0];
   await tapCell(sharedWord.a);
+  await waitFor(`document.querySelector('[data-testid="status-word-search"]').textContent.includes('Now tap the last letter')`);
   await tapCell(sharedWord.b);
-  assert.match(await evaluate(`document.querySelector('[data-testid="text-word-search-progress"]').textContent`), /1\s*\/\s*10/);
+  await waitFor(`document.querySelector('[data-testid="text-word-search-progress"]').textContent.includes('1 / 10')`);
   await visit('/games/word-scramble', 'game-word-scramble');
   await click('button-show-hint');
   assert.ok(await evaluate(`!!document.querySelector('[data-testid="text-word-hint"]')`));
