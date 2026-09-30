@@ -1,0 +1,285 @@
+{
+  "modalRecaptures": [
+    {
+      "width": 375,
+      "quick": {
+        "text": "Keep everyone in the loop.",
+        "top": 99,
+        "bottom": 170,
+        "visible": true
+      },
+      "request": {
+        "visible": true,
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "status": "New",
+        "y": 99
+      },
+      "modalTop": {
+        "dialog": true,
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "overflow": 0,
+        "dialogRect": {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 667
+        }
+      },
+      "modalBottom": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "scrollWidth": 360,
+        "clientWidth": 360,
+        "overflow": 0,
+        "cancelY": 578,
+        "cancelBottom": 626,
+        "saveY": 578,
+        "saveBottom": 626,
+        "dialogScrollTop": 1257,
+        "dialogScrollHeight": 1924,
+        "dialogClientHeight": 667
+      }
+    },
+    {
+      "width": 430,
+      "quick": {
+        "text": "Keep everyone in the loop.",
+        "top": 99,
+        "bottom": 135,
+        "visible": true
+      },
+      "request": {
+        "visible": true,
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "status": "New",
+        "y": 345
+      },
+      "modalTop": {
+        "dialog": true,
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "scrollWidth": 415,
+        "clientWidth": 415,
+        "overflow": 0,
+        "dialogRect": {
+          "x": 0,
+          "y": 0,
+          "width": 415,
+          "height": 932
+        }
+      },
+      "modalBottom": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "scrollWidth": 415,
+        "clientWidth": 415,
+        "overflow": 0,
+        "cancelY": 843,
+        "cancelBottom": 891,
+        "saveY": 843,
+        "saveBottom": 891,
+        "dialogScrollTop": 936,
+        "dialogScrollHeight": 1868,
+        "dialogClientHeight": 932
+      }
+    },
+    {
+      "width": 768,
+      "quick": {
+        "text": "Keep everyone in the loop.",
+        "top": 99,
+        "bottom": 134,
+        "visible": true
+      },
+      "request": {
+        "visible": true,
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "status": "New",
+        "y": 565
+      },
+      "modalTop": {
+        "dialog": true,
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "overflow": 0,
+        "dialogRect": {
+          "x": 0,
+          "y": 0,
+          "width": 753,
+          "height": 1024
+        }
+      },
+      "modalBottom": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "overflow": 0,
+        "cancelY": 934,
+        "cancelBottom": 982,
+        "saveY": 934,
+        "saveBottom": 982,
+        "dialogScrollTop": 488,
+        "dialogScrollHeight": 1547,
+        "dialogClientHeight": 1024
+      }
+    },
+    {
+      "width": 1024,
+      "quick": {
+        "text": "Keep everyone in the loop.",
+        "top": 99,
+        "bottom": 134,
+        "visible": true
+      },
+      "request": {
+        "visible": true,
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "status": "New",
+        "y": 322
+      },
+      "modalTop": {
+        "dialog": true,
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "overflow": 0,
+        "dialogRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1009,
+          "height": 768
+        }
+      },
+      "modalBottom": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "overflow": 0,
+        "cancelY": 678,
+        "cancelBottom": 726,
+        "saveY": 678,
+        "saveBottom": 726,
+        "dialogScrollTop": 744,
+        "dialogScrollHeight": 1547,
+        "dialogClientHeight": 768
+      }
+    },
+    {
+      "width": 1440,
+      "quick": {
+        "text": "Keep everyone in the loop.",
+        "top": 99,
+        "bottom": 134,
+        "visible": true
+      },
+      "request": {
+        "visible": true,
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "status": "New",
+        "y": 501
+      },
+      "modalTop": {
+        "dialog": true,
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "overflow": 0,
+        "dialogRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1425,
+          "height": 900
+        }
+      },
+      "modalBottom": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "overflow": 0,
+        "cancelY": 810,
+        "cancelBottom": 858,
+        "saveY": 810,
+        "saveBottom": 858,
+        "dialogScrollTop": 612,
+        "dialogScrollHeight": 1547,
+        "dialogClientHeight": 900
+      }
+    }
+  ],
+  "noticeboard320": {
+    "viewport": 320,
+    "docScrollWidth": 306,
+    "clientWidth": 305,
+    "overflow": 1,
+    "offenders": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "flex items-center gap-4 bg-white border border-[#d4e0e8] rounded-md p-3 pr-5",
+        "text": "Scan to open WardSpace\n\nOpen on your phone\n\nhttp://127.0.0.1:37797/\n\nOpen on thi",
+        "left": 20,
+        "right": 306.19,
+        "width": 286.19,
+        "scrollWidth": 284,
+        "clientWidth": 284,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "DIV",
+        "id": "root",
+        "className": "",
+        "text": "WardSpace\nAblett Mental Health Unit\nYsbyty Glan Clwyd\nBetsi Cadwaladr University",
+        "left": 0,
+        "right": 305,
+        "width": 305,
+        "scrollWidth": 306,
+        "clientWidth": 305,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "board",
+        "text": "WardSpace\nAblett Mental Health Unit\nYsbyty Glan Clwyd\nBetsi Cadwaladr University",
+        "left": 0,
+        "right": 305,
+        "width": 305,
+        "scrollWidth": 306,
+        "clientWidth": 305,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "FOOTER",
+        "id": "",
+        "className": "flex flex-wrap items-center justify-between gap-5 mt-6",
+        "text": "Everyday information for Ablett Mental Health Unit\n\nScan to open WardSpace\n\nOpen",
+        "left": 20,
+        "right": 285,
+        "width": 265,
+        "scrollWidth": 286,
+        "clientWidth": 265,
+        "overflowX": "visible"
+      }
+    ]
+  }
+}

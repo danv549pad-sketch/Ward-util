@@ -56,3 +56,59 @@ mtime_ms = 1790714123969
 storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/a3be9d12-4c26-4422-84fd-1f21176dd7e0/b2fe3578-1e4c-4c73-9136-22fbea7edbfe"
 storage_version_token = "1790715035308059"
 content_type = "image/jpeg"
+
+[[outputs]]
+id = "KWrYnQTsSdb1z8D6HjsnG"
+uri = "file://screenshots/wardspace-responsive/staff-375-practical-requests.jpg"
+type = "image"
+title = "Staff requests · 375px"
+description = "Synthetic long request and wrapped actions at phone width."
+logical_id = "9b4303f7-c0a9-426e-9ecf-a3be2fb5a9e7"
+content_hash = "sha256:adee733f2350fa0e4147544951e1649d9dfc36a47bde19252f109d569359d009"
+size = 46436
+mtime_ms = 1790718059425
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/9b4303f7-c0a9-426e-9ecf-a3be2fb5a9e7/4642b839-a7a4-4c33-a926-ecf3ccf0fc2a"
+storage_version_token = "1790718338052315"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "U7XePxSqXd9JJt5CTdyQq"
+uri = "file://screenshots/wardspace-responsive/staff-375-add-edit-modal.jpg"
+type = "image"
+title = "Staff editor · 375px"
+description = "The editor now opens within the viewport, with its close button visible."
+logical_id = "b2de3351-b509-4ccf-972b-0bf08ce53979"
+content_hash = "sha256:ad3da4f10abf6ce6ee3e95622bf79f86ec7480f612935a9d9aa5831cf76fcddf"
+size = 42149
+mtime_ms = 1790718060325
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/b2de3351-b509-4ccf-972b-0bf08ce53979/ee6b9507-38a3-4466-aec3-cfc5d1aec588"
+storage_version_token = "1790718338767925"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "WmgD7MzLiS8PplxdnU5Uk"
+uri = "file://screenshots/wardspace-responsive/staff-1440-general-suggestions.jpg"
+type = "image"
+title = "Staff suggestions · 1440px"
+description = "Wide-screen list with synthetic long suggestion content."
+logical_id = "3818710b-9eb7-45f4-8592-3a3179292ab5"
+content_hash = "sha256:a6bdddcd1dd502bd52529a6639040e089c2733c1f6c4910aae6ae6b8a2ede8f0"
+size = 126231
+mtime_ms = 1790717482232
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/3818710b-9eb7-45f4-8592-3a3179292ab5/3118965b-777e-4650-9432-f53f33b5948e"
+storage_version_token = "1790718339531911"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "_sy1hWfcYij3NVwvK04Nl"
+uri = "file://screenshots/wardspace-ablett-noticeboard-1920.jpg"
+type = "image"
+title = "Ablett Noticeboard · 1920px"
+description = "Full service hierarchy and independent Prototype label."
+logical_id = "a0e94164-7f96-47c4-ab68-ed349bff2632"
+content_hash = "sha256:78e730dfc0c3e7f1c4d753642e74e40aaee985e750bba1b5ae221ffd5ad1ad54"
+size = 95505
+mtime_ms = 1790716091473
+storage_uri = "gcs://replit-rams-assets-archer/rams/assets/repl:3a54c45e-f5fa-4c7f-aab0-cb5f1101c993/a0e94164-7f96-47c4-ab68-ed349bff2632/dbec8e0d-4a2d-411b-9f6c-e996acd826ce"
+storage_version_token = "1790718340263118"
+content_type = "image/jpeg"

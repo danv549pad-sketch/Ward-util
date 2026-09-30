@@ -1,0 +1,1992 @@
+{
+  "note": "Actual rendered Chromium audit using a temporary same-origin static/API fixture harness. Staff GET status was synthetically authenticated; no real sign-in, live API/database reads or writes, and no secrets/PIN used. Screenshots contain only synthetic fixtures. Modal, Quick Update and request captures were regenerated against rebuilt dist/public.",
+  "matrix": [
+    {
+      "viewport": "320x568",
+      "route": "/",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 1851,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "320x568",
+      "route": "/discover",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 4587,
+      "scrollSteps": 10
+    },
+    {
+      "viewport": "320x568",
+      "route": "/ask",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 2285,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "320x568",
+      "route": "/my-stuff",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 2025,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "320x568",
+      "route": "/about",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 2476,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5946,
+      "scrollSteps": 13
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#requests",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 6531,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#suggestions",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 6526,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 6405,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#activities",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 6560,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#announcements",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5922,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#schedule",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5946,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5942,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5922,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#learning",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5922,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/staff#editor",
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "overflow": 0,
+      "scrollHeight": 5922,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "320x568",
+      "route": "/noticeboard",
+      "scrollWidth": 306,
+      "clientWidth": 305,
+      "overflow": 1,
+      "scrollHeight": 948,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "375x667",
+      "route": "/",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 1799,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "375x667",
+      "route": "/discover",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 4240,
+      "scrollSteps": 8
+    },
+    {
+      "viewport": "375x667",
+      "route": "/ask",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 2110,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "375x667",
+      "route": "/my-stuff",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 1928,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "375x667",
+      "route": "/about",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 2312,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5569,
+      "scrollSteps": 10
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#requests",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5980,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#suggestions",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5959,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5869,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#activities",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 6046,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#announcements",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5545,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#schedule",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5569,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5545,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5545,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#learning",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5545,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff#editor",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 5545,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "375x667",
+      "route": "/noticeboard",
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "overflow": 0,
+      "scrollHeight": 936,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "390x844",
+      "route": "/",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 1779,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "390x844",
+      "route": "/discover",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 4116,
+      "scrollSteps": 6
+    },
+    {
+      "viewport": "390x844",
+      "route": "/ask",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 2028,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "390x844",
+      "route": "/my-stuff",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 1908,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "390x844",
+      "route": "/about",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 2137,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5116,
+      "scrollSteps": 7
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#requests",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5527,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#suggestions",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5486,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5396,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#activities",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5565,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#announcements",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5092,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#schedule",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5116,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5092,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5092,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#learning",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5072,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/staff#editor",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 5072,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "390x844",
+      "route": "/noticeboard",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "overflow": 0,
+      "scrollHeight": 1028,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "430x932",
+      "route": "/",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 1727,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "430x932",
+      "route": "/discover",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 3882,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "430x932",
+      "route": "/ask",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 2028,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "430x932",
+      "route": "/my-stuff",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 1810,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "430x932",
+      "route": "/about",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 2046,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4860,
+      "scrollSteps": 6
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#requests",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 5199,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#suggestions",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 5176,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 5068,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#activities",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 5290,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#announcements",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4836,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#schedule",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4860,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4836,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4836,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#learning",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4816,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/staff#editor",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 4816,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "430x932",
+      "route": "/noticeboard",
+      "scrollWidth": 415,
+      "clientWidth": 415,
+      "overflow": 0,
+      "scrollHeight": 1073,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 1567,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/discover",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 3222,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/ask",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 1588,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/my-stuff",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 1746,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/about",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 1509,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4132,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#requests",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4352,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#suggestions",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4296,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4268,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#activities",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4541,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#announcements",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4108,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#schedule",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4132,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4108,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4108,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#learning",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4108,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff#editor",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 4108,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/noticeboard",
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "overflow": 0,
+      "scrollHeight": 1027,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 1572,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/discover",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 3223,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/ask",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 1589,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/my-stuff",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 1747,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/about",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 1485,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4056,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#requests",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4276,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#suggestions",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4220,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4192,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#activities",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4465,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#announcements",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4032,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#schedule",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4056,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4032,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4032,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#learning",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4032,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/staff#editor",
+      "scrollWidth": 805,
+      "clientWidth": 805,
+      "overflow": 0,
+      "scrollHeight": 4032,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "820x1180",
+      "route": "/noticeboard",
+      "scrollWidth": 820,
+      "clientWidth": 820,
+      "overflow": 0,
+      "scrollHeight": 1180,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 1184,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/discover",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3088,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/ask",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 1144,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/my-stuff",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 1392,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/about",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 1471,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3674,
+      "scrollSteps": 6
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#requests",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3942,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#suggestions",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3906,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3850,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#activities",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 4063,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#announcements",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3650,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#schedule",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3674,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3670,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3650,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#learning",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3650,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff#editor",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 3650,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/noticeboard",
+      "scrollWidth": 1009,
+      "clientWidth": 1009,
+      "overflow": 0,
+      "scrollHeight": 832,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 1212,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/discover",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3087,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/ask",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 1112,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/my-stuff",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 1428,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/about",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 1282,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3281,
+      "scrollSteps": 5
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#requests",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3501,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#suggestions",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3393,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3417,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#activities",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3630,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#announcements",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3257,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#schedule",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3281,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3257,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3257,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#learning",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3257,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/staff#editor",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 3257,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/noticeboard",
+      "scrollWidth": 1265,
+      "clientWidth": 1265,
+      "overflow": 0,
+      "scrollHeight": 878,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 1214,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/discover",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3070,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/ask",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 1050,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/my-stuff",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 1392,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/about",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 1258,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3025,
+      "scrollSteps": 4
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#requests",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3245,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#suggestions",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3137,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3161,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#activities",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3374,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#announcements",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3001,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#schedule",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3025,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3001,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3001,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#learning",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3001,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff#editor",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 3001,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/noticeboard",
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "overflow": 0,
+      "scrollHeight": 956,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 1214,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/discover",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3070,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/ask",
+      "scrollWidth": 1920,
+      "clientWidth": 1920,
+      "overflow": 0,
+      "scrollHeight": 1080,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/my-stuff",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 1392,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/about",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 1258,
+      "scrollSteps": 2
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3000,
+      "scrollSteps": 3
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#requests",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3220,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#suggestions",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3092,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#activity-suggestions",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3116,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#activities",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3349,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#announcements",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 2976,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#schedule",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 3000,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#ward-guide",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 2976,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#things-to-do",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 2976,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#learning",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 2976,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/staff#editor",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 2976,
+      "scrollSteps": 1
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/noticeboard",
+      "scrollWidth": 1905,
+      "clientWidth": 1905,
+      "overflow": 0,
+      "scrollHeight": 1100,
+      "scrollSteps": 2
+    }
+  ],
+  "inspect": [
+    {
+      "viewport": "320x568",
+      "route": "/staff",
+      "w": 320,
+      "doc": 305,
+      "client": 305,
+      "off": [],
+      "clipped": []
+    },
+    {
+      "viewport": "375x667",
+      "route": "/staff",
+      "w": 375,
+      "doc": 360,
+      "client": 360,
+      "off": [],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/staff",
+      "w": 768,
+      "doc": 753,
+      "client": 753,
+      "off": [],
+      "clipped": []
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/staff",
+      "w": 1024,
+      "doc": 1009,
+      "client": 1009,
+      "off": [],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "/staff",
+      "w": 1440,
+      "doc": 1425,
+      "client": 1425,
+      "off": [],
+      "clipped": []
+    },
+    {
+      "viewport": "1920x1080",
+      "route": "/noticeboard",
+      "w": 1920,
+      "doc": 1905,
+      "client": 1905,
+      "off": [],
+      "clipped": []
+    }
+  ],
+  "evidence": [
+    {
+      "file": "staff-375-dashboard-top.jpg",
+      "assertion": {
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-375-quick-update.jpg",
+      "assertion": {
+        "heading": "Keep everyone in the loop.",
+        "fullyVisible": true,
+        "top": 99,
+        "bottom": 170
+      }
+    },
+    {
+      "file": "staff-375-challenge-management.jpg",
+      "assertion": {
+        "heading": "Today’s challenge",
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-375-practical-requests.jpg",
+      "assertion": {
+        "status": "New",
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "cardVisible": true
+      }
+    },
+    {
+      "file": "staff-375-general-suggestions.jpg",
+      "assertion": {
+        "status": "Under Review",
+        "longResponseVisible": true,
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-375-add-edit-modal.jpg",
+      "assertion": {
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "documentScrollWidth": 360,
+        "clientWidth": 360,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-375-add-edit-modal-bottom.jpg",
+      "assertion": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "documentScrollWidth": 360,
+        "clientWidth": 360,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-430-dashboard-top.jpg",
+      "assertion": {
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-430-quick-update.jpg",
+      "assertion": {
+        "heading": "Keep everyone in the loop.",
+        "fullyVisible": true,
+        "top": 99,
+        "bottom": 135
+      }
+    },
+    {
+      "file": "staff-430-challenge-management.jpg",
+      "assertion": {
+        "heading": "Today’s challenge",
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-430-practical-requests.jpg",
+      "assertion": {
+        "status": "New",
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "cardVisible": true
+      }
+    },
+    {
+      "file": "staff-430-general-suggestions.jpg",
+      "assertion": {
+        "status": "Under Review",
+        "longResponseVisible": true,
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-430-add-edit-modal.jpg",
+      "assertion": {
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "documentScrollWidth": 415,
+        "clientWidth": 415,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-430-add-edit-modal-bottom.jpg",
+      "assertion": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "documentScrollWidth": 415,
+        "clientWidth": 415,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-768-dashboard-top.jpg",
+      "assertion": {
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-768-quick-update.jpg",
+      "assertion": {
+        "heading": "Keep everyone in the loop.",
+        "fullyVisible": true,
+        "top": 99,
+        "bottom": 134
+      }
+    },
+    {
+      "file": "staff-768-challenge-management.jpg",
+      "assertion": {
+        "heading": "Today’s challenge",
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-768-practical-requests.jpg",
+      "assertion": {
+        "status": "New",
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "cardVisible": true
+      }
+    },
+    {
+      "file": "staff-768-general-suggestions.jpg",
+      "assertion": {
+        "status": "Under Review",
+        "longResponseVisible": true,
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-768-add-edit-modal.jpg",
+      "assertion": {
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "documentScrollWidth": 753,
+        "clientWidth": 753,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-768-add-edit-modal-bottom.jpg",
+      "assertion": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "documentScrollWidth": 753,
+        "clientWidth": 753,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-1024-dashboard-top.jpg",
+      "assertion": {
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1024-quick-update.jpg",
+      "assertion": {
+        "heading": "Keep everyone in the loop.",
+        "fullyVisible": true,
+        "top": 99,
+        "bottom": 134
+      }
+    },
+    {
+      "file": "staff-1024-challenge-management.jpg",
+      "assertion": {
+        "heading": "Today’s challenge",
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1024-practical-requests.jpg",
+      "assertion": {
+        "status": "New",
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "cardVisible": true
+      }
+    },
+    {
+      "file": "staff-1024-general-suggestions.jpg",
+      "assertion": {
+        "status": "Under Review",
+        "longResponseVisible": true,
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1024-add-edit-modal.jpg",
+      "assertion": {
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "documentScrollWidth": 1009,
+        "clientWidth": 1009,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-1024-add-edit-modal-bottom.jpg",
+      "assertion": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "documentScrollWidth": 1009,
+        "clientWidth": 1009,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-1440-dashboard-top.jpg",
+      "assertion": {
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1440-quick-update.jpg",
+      "assertion": {
+        "heading": "Keep everyone in the loop.",
+        "fullyVisible": true,
+        "top": 99,
+        "bottom": 134
+      }
+    },
+    {
+      "file": "staff-1440-challenge-management.jpg",
+      "assertion": {
+        "heading": "Today’s challenge",
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1440-practical-requests.jpg",
+      "assertion": {
+        "status": "New",
+        "title": "Request to discuss additional evening recreational activities",
+        "titleVisible": true,
+        "cardVisible": true
+      }
+    },
+    {
+      "file": "staff-1440-general-suggestions.jpg",
+      "assertion": {
+        "status": "Under Review",
+        "longResponseVisible": true,
+        "visuallyInspected": true
+      }
+    },
+    {
+      "file": "staff-1440-add-edit-modal.jpg",
+      "assertion": {
+        "title": "Edit entry",
+        "headerVisible": true,
+        "closeVisible": true,
+        "documentScrollWidth": 1425,
+        "clientWidth": 1425,
+        "overflow": 0
+      }
+    },
+    {
+      "file": "staff-1440-add-edit-modal-bottom.jpg",
+      "assertion": {
+        "cancelVisible": true,
+        "saveVisible": true,
+        "documentScrollWidth": 1425,
+        "clientWidth": 1425,
+        "overflow": 0
+      }
+    }
+  ],
+  "screenshots": [
+    "staff-375-dashboard-top.jpg",
+    "staff-375-quick-update.jpg",
+    "staff-375-challenge-management.jpg",
+    "staff-375-practical-requests.jpg",
+    "staff-375-general-suggestions.jpg",
+    "staff-375-add-edit-modal.jpg",
+    "staff-375-add-edit-modal-bottom.jpg",
+    "staff-430-dashboard-top.jpg",
+    "staff-430-quick-update.jpg",
+    "staff-430-challenge-management.jpg",
+    "staff-430-practical-requests.jpg",
+    "staff-430-general-suggestions.jpg",
+    "staff-430-add-edit-modal.jpg",
+    "staff-430-add-edit-modal-bottom.jpg",
+    "staff-768-dashboard-top.jpg",
+    "staff-768-quick-update.jpg",
+    "staff-768-challenge-management.jpg",
+    "staff-768-practical-requests.jpg",
+    "staff-768-general-suggestions.jpg",
+    "staff-768-add-edit-modal.jpg",
+    "staff-768-add-edit-modal-bottom.jpg",
+    "staff-1024-dashboard-top.jpg",
+    "staff-1024-quick-update.jpg",
+    "staff-1024-challenge-management.jpg",
+    "staff-1024-practical-requests.jpg",
+    "staff-1024-general-suggestions.jpg",
+    "staff-1024-add-edit-modal.jpg",
+    "staff-1024-add-edit-modal-bottom.jpg",
+    "staff-1440-dashboard-top.jpg",
+    "staff-1440-quick-update.jpg",
+    "staff-1440-challenge-management.jpg",
+    "staff-1440-practical-requests.jpg",
+    "staff-1440-general-suggestions.jpg",
+    "staff-1440-add-edit-modal.jpg",
+    "staff-1440-add-edit-modal-bottom.jpg",
+    "patient-today-390.jpg",
+    "patient-discover-430.jpg",
+    "patient-ask-375.jpg",
+    "patient-my-stuff-390.jpg",
+    "patient-about-430.jpg",
+    "noticeboard-1920.jpg"
+  ],
+  "noticeboard320Inspection": {
+    "viewport": 320,
+    "docScrollWidth": 306,
+    "clientWidth": 305,
+    "overflow": 1,
+    "offenders": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "flex items-center gap-4 bg-white border border-[#d4e0e8] rounded-md p-3 pr-5",
+        "text": "Scan to open WardSpace\n\nOpen on your phone\n\nhttp://127.0.0.1:37797/\n\nOpen on thi",
+        "left": 20,
+        "right": 306.19,
+        "width": 286.19,
+        "scrollWidth": 284,
+        "clientWidth": 284,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "DIV",
+        "id": "root",
+        "className": "",
+        "text": "WardSpace\nAblett Mental Health Unit\nYsbyty Glan Clwyd\nBetsi Cadwaladr University",
+        "left": 0,
+        "right": 305,
+        "width": 305,
+        "scrollWidth": 306,
+        "clientWidth": 305,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "className": "board",
+        "text": "WardSpace\nAblett Mental Health Unit\nYsbyty Glan Clwyd\nBetsi Cadwaladr University",
+        "left": 0,
+        "right": 305,
+        "width": 305,
+        "scrollWidth": 306,
+        "clientWidth": 305,
+        "overflowX": "visible"
+      },
+      {
+        "tag": "FOOTER",
+        "id": "",
+        "className": "flex flex-wrap items-center justify-between gap-5 mt-6",
+        "text": "Everyday information for Ablett Mental Health Unit\n\nScan to open WardSpace\n\nOpen",
+        "left": 20,
+        "right": 285,
+        "width": 265,
+        "scrollWidth": 286,
+        "clientWidth": 265,
+        "overflowX": "visible"
+      }
+    ]
+  }
+}

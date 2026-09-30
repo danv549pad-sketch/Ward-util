@@ -1,6 +1,35 @@
 import type { WardItem } from '@workspace/api-client-react';
 
-export const localDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const wardParts = (date: Date, parts: Intl.DateTimeFormatOptions) =>
+  Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', ...parts }).formatToParts(date).map(part => [part.type, part.value]));
+export const localDay = (date: Date) => {
+  const parts = wardParts(date, { year: 'numeric', month: '2-digit', day: '2-digit' });
+  return `${parts.year}-${parts.month}-${parts.day}`;
+};
+export const wardClock = (date: Date) => {
+  const parts = wardParts(date, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  return `${parts.hour}:${parts.minute}`;
+};
+const dayNumber = (day: string) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
+  const date = new Date(`${day}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === day
+    ? Math.floor(date.getTime() / 86400000) : null;
+};
+
+/** Calendar-day arithmetic is in UTC; the date being matched is the Europe/London ward date. */
+export function scheduleOccursOnDate(event: WardItem, day: string): boolean {
+  const recurrence = event.recurrence || 'none';
+  if (recurrence === 'none') return !event.date || event.date === day;
+  const start = dayNumber(event.date || ''), target = dayNumber(day), end = dayNumber(event.recurrenceEndDate || '');
+  if (start === null || target === null || end === null || target < start || target > end) return false;
+  if (recurrence === 'daily') return true;
+  if (recurrence === 'weekdays') {
+    const weekday = new Date(target * 86400000).getUTCDay();
+    return weekday >= 1 && weekday <= 5;
+  }
+  return recurrence === 'weekly' && (target - start) % 7 === 0;
+}
 
 const allowed = (item: WardItem) =>
   item.active !== false &&
@@ -12,7 +41,7 @@ export function todayEvents(schedule: WardItem[], activities: WardItem[], now: D
   const today = localDay(now);
   const unique = new Map<string, WardItem>();
   for (const item of [...schedule, ...activities]) {
-    if (!allowed(item) || (item.date && item.date !== today)) continue;
+    if (!allowed(item) || (item.kind === 'schedule' ? !scheduleOccursOnDate(item, today) : !!item.date && item.date !== today)) continue;
     const key = `${item.title.trim().replace(/\s+/g, ' ').toLocaleLowerCase()}|${item.time?.slice(0, 5) || ''}`;
     const previous = unique.get(key);
     // An activity exposes interest count; retain any end time only supplied on the schedule.
@@ -27,7 +56,8 @@ const minutes = (time: string) => {
 };
 
 export function currentAndNext(events: WardItem[], now: Date) {
-  const clock = now.getHours() * 60 + now.getMinutes();
+  const [hour, minute] = wardClock(now).split(':').map(Number);
+  const clock = hour * 60 + minute;
   const current = events.filter((item, index) => {
     if (!item.time) return false;
     const start = minutes(item.time);

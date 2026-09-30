@@ -280,6 +280,8 @@ components:
         description: { type: string }
         category: { type: string }
         date: { type: string }
+        recurrence: { type: string, enum: [none, daily, weekdays, weekly] }
+        recurrenceEndDate: { type: string }
         time: { type: string }
         endTime: { type: string }
         location: { type: string }
@@ -303,6 +305,8 @@ components:
         description: { type: string, maxLength: 3000 }
         category: { type: string, maxLength: 80 }
         date: { type: string, maxLength: 10 }
+        recurrence: { type: string, enum: [none, daily, weekdays, weekly] }
+        recurrenceEndDate: { type: string, maxLength: 10 }
         time: { type: string, maxLength: 40 }
         endTime: { type: string, maxLength: 40 }
         location: { type: string, maxLength: 100 }
@@ -322,6 +326,8 @@ components:
         description: { type: string, maxLength: 3000 }
         category: { type: string, maxLength: 80 }
         date: { type: string, maxLength: 10 }
+        recurrence: { type: string, enum: [none, daily, weekdays, weekly] }
+        recurrenceEndDate: { type: string, maxLength: 10 }
         time: { type: string, maxLength: 40 }
         endTime: { type: string, maxLength: 40 }
         location: { type: string, maxLength: 100 }

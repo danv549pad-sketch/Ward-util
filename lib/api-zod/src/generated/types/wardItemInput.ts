@@ -5,6 +5,7 @@
  * WardSpace non-clinical prototype API
  * OpenAPI spec version: 0.1.0
  */
+import type { WardItemInputRecurrence } from './wardItemInputRecurrence';
 
 export interface WardItemInput {
   /**
@@ -18,6 +19,9 @@ export interface WardItemInput {
   category?: string;
   /** @maxLength 10 */
   date?: string;
+  recurrence?: WardItemInputRecurrence;
+  /** @maxLength 10 */
+  recurrenceEndDate?: string;
   /** @maxLength 40 */
   time?: string;
   /** @maxLength 40 */

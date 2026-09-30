@@ -9,6 +9,16 @@ export interface HealthStatus {
   status: string;
 }
 
+export type WardItemRecurrence = typeof WardItemRecurrence[keyof typeof WardItemRecurrence];
+
+
+export const WardItemRecurrence = {
+  none: 'none',
+  daily: 'daily',
+  weekdays: 'weekdays',
+  weekly: 'weekly',
+} as const;
+
 export interface WardItem {
   id: number;
   kind: string;
@@ -16,6 +26,8 @@ export interface WardItem {
   description?: string;
   category?: string;
   date?: string;
+  recurrence?: WardItemRecurrence;
+  recurrenceEndDate?: string;
   time?: string;
   endTime?: string;
   location?: string;
@@ -33,6 +45,16 @@ export interface WardItem {
   createdAt: string;
 }
 
+export type WardItemInputRecurrence = typeof WardItemInputRecurrence[keyof typeof WardItemInputRecurrence];
+
+
+export const WardItemInputRecurrence = {
+  none: 'none',
+  daily: 'daily',
+  weekdays: 'weekdays',
+  weekly: 'weekly',
+} as const;
+
 export interface WardItemInput {
   /**
      * @minLength 1
@@ -45,6 +67,9 @@ export interface WardItemInput {
   category?: string;
   /** @maxLength 10 */
   date?: string;
+  recurrence?: WardItemInputRecurrence;
+  /** @maxLength 10 */
+  recurrenceEndDate?: string;
   /** @maxLength 40 */
   time?: string;
   /** @maxLength 40 */
@@ -72,6 +97,16 @@ export interface WardItemInput {
   active?: boolean;
 }
 
+export type WardItemUpdateRecurrence = typeof WardItemUpdateRecurrence[keyof typeof WardItemUpdateRecurrence];
+
+
+export const WardItemUpdateRecurrence = {
+  none: 'none',
+  daily: 'daily',
+  weekdays: 'weekdays',
+  weekly: 'weekly',
+} as const;
+
 export interface WardItemUpdate {
   /**
      * @minLength 1
@@ -84,6 +119,9 @@ export interface WardItemUpdate {
   category?: string;
   /** @maxLength 10 */
   date?: string;
+  recurrence?: WardItemUpdateRecurrence;
+  /** @maxLength 10 */
+  recurrenceEndDate?: string;
   /** @maxLength 40 */
   time?: string;
   /** @maxLength 40 */

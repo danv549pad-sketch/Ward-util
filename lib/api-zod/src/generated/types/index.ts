@@ -25,5 +25,8 @@ export * from './staffPin';
 export * from './staffStatus';
 export * from './wardItem';
 export * from './wardItemInput';
+export * from './wardItemInputRecurrence';
+export * from './wardItemRecurrence';
 export * from './wardItemUpdate';
+export * from './wardItemUpdateRecurrence';
 export * from './wardSummary';

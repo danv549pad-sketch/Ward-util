@@ -61,7 +61,7 @@ function rowFor(kind: Kind, raw: any, session: string) {
   const interestTable = kind === "activities" ? "activity_interest" : kind === "activity-suggestions" ? "suggestion_interest" : null;
   const idColumn = kind === "activities" ? "activity_id" : "suggestion_id";
   const interest = interestTable ? sqlite.prepare(`SELECT COUNT(*) AS n, MAX(CASE WHEN anonymous_session_id = ? THEN 1 ELSE 0 END) AS mine FROM ${interestTable} WHERE ${idColumn} = ?`).get(session, raw.id) as { n: number; mine: number } : null;
-  return { ...data, id: raw.id as number, kind, title: raw.title as string, category: raw.category as string, date: raw.date as string, time: raw.time as string, status: raw.status as string, createdAt: raw.created_at as string, interestCount: interest?.n || 0, interested: Boolean(interest?.mine) };
+  return { ...data, ...(kind === "schedule" ? { recurrence: data.recurrence || "none" } : {}), id: raw.id as number, kind, title: raw.title as string, category: raw.category as string, date: raw.date as string, time: raw.time as string, status: raw.status as string, createdAt: raw.created_at as string, interestCount: interest?.n || 0, interested: Boolean(interest?.mine) };
 }
 const idParams = (schema: { safeParse: (input: unknown) => any }, req: Request, res: Response) => {
   const parsed = schema.safeParse(req.params);
@@ -81,6 +81,19 @@ const allowedStatus: Partial<Record<Kind, string[]>> = {
   suggestions: ["New", "Reviewed", "Under Review", "In Progress", "Implemented", "Responded", "Approved", "Archived", "Declined"],
 };
 const checkStatus = (kind: Kind, status: unknown) => !status || (allowedStatus[kind]?.includes(String(status)) ?? false);
+const validDay = (value: unknown): value is string => {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+};
+const validSchedule = (kind: Kind, fields: Record<string, unknown>) => {
+  if (kind !== "schedule") return fields.recurrence === undefined && fields.recurrenceEndDate === undefined;
+  const recurrence = fields.recurrence || "none";
+  if (recurrence === "none") return !fields.recurrenceEndDate;
+  return ["daily", "weekdays", "weekly"].includes(String(recurrence))
+    && validDay(fields.date) && validDay(fields.recurrenceEndDate)
+    && fields.recurrenceEndDate >= fields.date;
+};
 const visible = (kind: Kind, row: any) => {
   const data = JSON.parse(row.data);
   if (kind === "requests") return false;
@@ -173,6 +186,7 @@ router.post("/wardspace/:kind", (req, res) => {
   const status = isStaff ? body.data.status || (kind === "activities" ? "Draft" : "") : kind === "requests" || kind === "suggestions" ? "New" : "Pending";
   if (!checkStatus(kind, status)) { bodyError(res); return; }
   const fields = { ...body.data, title: body.data.title.trim(), status, published: isStaff ? body.data.published : false };
+  if (!validSchedule(kind, fields)) { res.status(400).json({ error: "Repeating schedule events need an end date on or after the first event date." }); return; }
   const id = insert(kind, fields);
   if (!isStaff) trackEngagement(kind === "requests" ? "request_submitted" : "suggestion_submitted");
   const row = sqlite.prepare(`SELECT * FROM ${tableFor(kind)} WHERE id = ?`).get(id);
@@ -186,6 +200,7 @@ router.patch("/wardspace/:kind/:id", (req, res) => {
   if (!old) { res.status(404).json({ error: "Item not found" }); return; }
   const fields = { ...JSON.parse(old.data), ...body.data };
   if (typeof fields.title !== "string" || !fields.title.trim()) { bodyError(res); return; }
+  if (!validSchedule(params.kind, fields)) { res.status(400).json({ error: "Repeating schedule events need an end date on or after the first event date." }); return; }
   sqlite.prepare(`UPDATE ${table} SET title=?, category=?, status=?, date=?, time=?, data=?, updated_at=datetime('now') WHERE id=?`)
     .run(fields.title, fields.category || "", fields.status || "", fields.date || "", fields.time || "", JSON.stringify(fields), params.id);
   res.json(UpdateWardItemResponse.parse(rowFor(params.kind, sqlite.prepare(`SELECT * FROM ${table} WHERE id=?`).get(params.id), viewer(req, res))));

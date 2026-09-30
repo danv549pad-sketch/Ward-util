@@ -3,6 +3,7 @@ const label = (value: string | undefined, fallback: string) => value?.trim() || 
 
 export const branding = {
   productName: 'WardSpace',
+  serviceName: label(import.meta.env.VITE_WARDSPACE_SERVICE_NAME, 'Ablett Mental Health Unit'),
   siteName: label(import.meta.env.VITE_WARDSPACE_SITE_NAME, 'Ysbyty Glan Clwyd'),
   organisationName: label(import.meta.env.VITE_WARDSPACE_ORG_NAME, 'Betsi Cadwaladr University Health Board'),
   organisationNameCy: label(import.meta.env.VITE_WARDSPACE_ORG_NAME_CY, 'Bwrdd Iechyd Prifysgol Betsi Cadwaladr'),

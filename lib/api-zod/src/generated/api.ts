@@ -24,6 +24,8 @@ export const ListWardItemsResponseItem = zod.object({
   "description": zod.string().optional(),
   "category": zod.string().optional(),
   "date": zod.string().optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().optional(),
   "time": zod.string().optional(),
   "endTime": zod.string().optional(),
   "location": zod.string().optional(),
@@ -55,6 +57,8 @@ export const createWardItemBodyCategoryMax = 80;
 
 export const createWardItemBodyDateMax = 10;
 
+export const createWardItemBodyRecurrenceEndDateMax = 10;
+
 export const createWardItemBodyTimeMax = 40;
 
 export const createWardItemBodyEndTimeMax = 40;
@@ -82,6 +86,8 @@ export const CreateWardItemBody = zod.object({
   "description": zod.string().max(createWardItemBodyDescriptionMax).optional(),
   "category": zod.string().max(createWardItemBodyCategoryMax).optional(),
   "date": zod.string().max(createWardItemBodyDateMax).optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().max(createWardItemBodyRecurrenceEndDateMax).optional(),
   "time": zod.string().max(createWardItemBodyTimeMax).optional(),
   "endTime": zod.string().max(createWardItemBodyEndTimeMax).optional(),
   "location": zod.string().max(createWardItemBodyLocationMax).optional(),
@@ -103,6 +109,8 @@ export const CreateWardItemResponse = zod.object({
   "description": zod.string().optional(),
   "category": zod.string().optional(),
   "date": zod.string().optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().optional(),
   "time": zod.string().optional(),
   "endTime": zod.string().optional(),
   "location": zod.string().optional(),
@@ -134,6 +142,8 @@ export const updateWardItemBodyCategoryMax = 80;
 
 export const updateWardItemBodyDateMax = 10;
 
+export const updateWardItemBodyRecurrenceEndDateMax = 10;
+
 export const updateWardItemBodyTimeMax = 40;
 
 export const updateWardItemBodyEndTimeMax = 40;
@@ -161,6 +171,8 @@ export const UpdateWardItemBody = zod.object({
   "description": zod.string().max(updateWardItemBodyDescriptionMax).optional(),
   "category": zod.string().max(updateWardItemBodyCategoryMax).optional(),
   "date": zod.string().max(updateWardItemBodyDateMax).optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().max(updateWardItemBodyRecurrenceEndDateMax).optional(),
   "time": zod.string().max(updateWardItemBodyTimeMax).optional(),
   "endTime": zod.string().max(updateWardItemBodyEndTimeMax).optional(),
   "location": zod.string().max(updateWardItemBodyLocationMax).optional(),
@@ -182,6 +194,8 @@ export const UpdateWardItemResponse = zod.object({
   "description": zod.string().optional(),
   "category": zod.string().optional(),
   "date": zod.string().optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().optional(),
   "time": zod.string().optional(),
   "endTime": zod.string().optional(),
   "location": zod.string().optional(),
@@ -375,6 +389,8 @@ export const ListStaffRequestsResponseItem = zod.object({
   "description": zod.string().optional(),
   "category": zod.string().optional(),
   "date": zod.string().optional(),
+  "recurrence": zod.enum(['none', 'daily', 'weekdays', 'weekly']).optional(),
+  "recurrenceEndDate": zod.string().optional(),
   "time": zod.string().optional(),
   "endTime": zod.string().optional(),
   "location": zod.string().optional(),

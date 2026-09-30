@@ -56,7 +56,7 @@ export function DeviceSettings() {
   return <section className="surface p-5 md:p-7 mb-9" aria-labelledby="device-settings-title">
     <p className="eyebrow">This browser only</p>
     <h2 id="device-settings-title" className="display text-2xl md:text-3xl mt-2">Device configuration</h2>
-    <p className="text-sm text-[#617768] mt-3 max-w-[75ch]">Set a communal ward tablet to Shared. The choice is saved on this browser, not across all WardSpace devices. A person scanning the noticeboard QR on their own phone remains in Personal mode by default.</p>
+    <p className="text-sm text-[#415181] mt-3 max-w-[75ch]">Set a communal ward tablet to Shared. The choice is saved on this browser, not across all WardSpace devices. A person scanning the noticeboard QR on their own phone remains in Personal mode by default.</p>
     <div className="flex flex-wrap gap-2 mt-5" role="group" aria-label="Device mode">
       {(['personal','shared'] as const).map(value=><button type="button" key={value} className={`btn ${mode===value?'btn-primary':'btn-outline'}`} aria-pressed={mode===value} onClick={()=>change(value)} data-testid={`button-mode-${value}`}>{value==='shared'?'Shared device':'Personal device'}</button>)}
     </div>
